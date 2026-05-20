@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Sorteador de Alunos — Ferramenta interativa de sorteio e organização para apresentações de projetos de Programação Web (Turmas T1 e T2).">
+  <title>Sorteador de Alunos — Programação Web URI</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="sorteador-style.css">
+</head>
+
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-bar" role="progressbar" aria-label="Progresso de leitura"></div>
+
+  <!-- Sticky Navbar -->
+  <nav id="navbar" aria-label="Navegação principal">
+    <a href="index.html" class="navbar-brand" aria-label="Portfólio Web URI">Tagliari Web Programming</a>
+    <div class="navbar-actions">
+      <a href="index.html" class="nav-back-link" aria-label="Voltar para a página inicial">← Voltar ao Início</a>
+      <button id="mode-toggle" aria-label="Alternar tema" title="Alternar tema escuro/claro">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero" role="banner">
+    <div class="hero-badge">✦ Apresentações de Projeto</div>
+    <h1>
+      <span class="grad">Sorteador de Alunos</span>
+    </h1>
+    <p>
+      Selecione a turma, gerencie a lista de presença em tempo real e realize sorteios aleatórios com animações sonoras e confetti para ordenar as apresentações dos projetos.
+    </p>
+
+    <!-- Stats Grid -->
+    <section class="stats-row" aria-label="Estatísticas da classe selecionada">
+      <div class="stat-card">
+        <span class="stat-val" id="stat-total">0</span>
+        <span class="stat-lbl">Total Alunos</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-val" id="stat-present" style="color: var(--blue);">0</span>
+        <span class="stat-lbl">Presentes</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-val" id="stat-absent" style="color: var(--red);">0</span>
+        <span class="stat-lbl">Ausentes</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-val" id="stat-drawn" style="color: var(--green);">0/0</span>
+        <span class="stat-lbl">Apresentados</span>
+      </div>
+    </section>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-container">
+
+    <!-- Left Pane: Slot Machine Sorter Console & History -->
+    <aside class="left-pane" aria-label="Console de Controle">
+      
+      <!-- Slot Machine Wheel -->
+      <section class="picker-card" aria-labelledby="console-title">
+        <h2 class="picker-title" id="console-title">🎲 Sorteio Aleatório</h2>
+        
+        <!-- Animated Name Display -->
+        <div class="display-screen" aria-live="polite">
+          <div class="display-name" id="display-name">Aguardando...</div>
+          <span class="display-class" id="display-class" style="display: none;">T1</span>
+        </div>
+
+        <!-- Spin Trigger -->
+        <button class="btn btn-primary" id="btn-draw" onclick="drawStudent()" aria-label="Sortear aluno para apresentação">
+          ⚡ Sortear Aluno!
+        </button>
+
+        <!-- Toggle Controls -->
+        <div class="panel-settings">
+          <label class="checkbox-label" for="chk-repeats">
+            <input type="checkbox" id="chk-repeats" checked>
+            <span>Evitar repetidos (Sorteio exclusivo)</span>
+          </label>
+          <label class="checkbox-label" for="chk-sound">
+            <input type="checkbox" id="chk-sound" checked>
+            <span>Efeitos sonoros (Sintetizador Web Audio)</span>
+          </label>
+        </div>
+      </section>
+
+      <!-- Draw History Sequence -->
+      <section class="history-card" aria-labelledby="history-title">
+        <div class="history-header">
+          <h2 id="history-title">📋 Ordem de Apresentação</h2>
+          <span style="font-size: 0.75rem; color: var(--mode-txt2); font-weight: 600;">Sorteados</span>
+        </div>
+        
+        <!-- List container -->
+        <ol class="history-list" id="history-list" aria-live="polite">
+          <li class="history-empty">Nenhum sorteio realizado ainda.</li>
+        </ol>
+
+        <!-- History Actions -->
+        <div class="action-row">
+          <button class="btn btn-outline" onclick="copyHistory()" aria-label="Copiar lista de sorteados">
+            📋 Copiar Ordem
+          </button>
+          <button class="btn btn-outline" style="color: var(--red); border-color: rgba(248, 113, 113, 0.3);" onclick="resetHistory()" aria-label="Reiniciar todos os sorteios">
+            ↺ Reiniciar
+          </button>
+        </div>
+      </section>
+
+    </aside>
+
+    <!-- Right Pane: Student Grid Management -->
+    <section class="right-pane" aria-labelledby="list-title">
+      
+      <!-- Filter controls -->
+      <div class="list-controls">
+        <h2 id="list-title" style="font-size: 0.95rem; font-weight: 700; color: var(--mode-txt);">👥 Gerenciamento de Alunos</h2>
+        
+        <!-- Classroom filter tabs -->
+        <div class="tabs-wrap" id="tabs-container" role="tablist" aria-label="Filtro de turmas">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Text search -->
+        <div class="search-wrap">
+          <input type="text" id="student-search" class="search-input" placeholder="🔍 Buscar aluno..." aria-label="Filtrar por nome">
+        </div>
+      </div>
+
+      <!-- Student Card Grid -->
+      <div class="student-grid" id="student-grid" role="group" aria-label="Grid de Alunos">
+        <!-- Populated by JS -->
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Script Import -->
+  <script src="sorteador-script.js"></script>
+</body>
+
+</html>
