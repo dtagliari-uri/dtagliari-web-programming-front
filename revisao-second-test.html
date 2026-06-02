@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Web Programming Módulo 2 Exam Trainer — Treine para a segunda prova com quizzes, simuladores de requisição, validadores de JSON, editores de correção DOM e autoavaliação.">
+  <title>Exam Trainer Módulo 2 — Programação Web URI - Douglas Tagliari</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="revisao-second-test.css">
+</head>
+
+<body>
+
+  <!-- ── SCROLL PROGRESS ─────────────── -->
+  <div id="progress-bar" role="progressbar" aria-label="Progresso de leitura"></div>
+
+  <!-- ── NAVBAR ──────────────────────── -->
+  <nav aria-label="Navegação principal">
+    <a href="index.html" class="nav-brand" aria-label="Portfólio Web URI">Home</a>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#trainer">🎯 Início</a></li>
+      <li><a href="#sec-client-server">📡 Cliente-Servidor</a></li>
+      <li><a href="#sec-dom-events">⚡ DOM & Eventos</a></li>
+      <li><a href="#sec-ajax-json">🔗 Fetch & JSON</a></li>
+      <li><a href="#sec-storage">💾 Storage</a></li>
+      <li><a href="#sec-security">🔒 Segurança</a></li>
+      <li><a href="#sec-frameworks">🏗️ Frameworks</a></li>
+      <li><a href="#sec-flashcards">🃏 Cards</a></li>
+      <li><a href="#sec-written">✍️ Dissertativas</a></li>
+      <li><a href="#sec-challenge">🛠️ Desafio</a></li>
+      <li><a href="#quiz-section">🧠 Simulado</a></li>
+      <li><a href="#checklist">✅ Autoavaliação</a></li>
+      <li><a href="modulo2.html" class="nav-back">⬅ Voltar</a></li>
+    </ul>
+
+    <div class="nav-actions">
+      <button id="mode-toggle" aria-label="Alternar tema" title="Dark / Light mode">🌙</button>
+    </div>
+  </nav>
+
+  <!-- ── STUDY TIMER (fixed) ─────────── -->
+  <div id="timer-pill" role="timer" aria-label="Temporizador de estudo">
+    <div class="timer-label">⏱ Temporizador</div>
+    <div class="timer-display" id="td">00:00</div>
+    <div class="timer-set">
+      <select id="tk-min" aria-label="Minutos">
+        <option value="30">30 minutos</option>
+        <option value="60" selected>1 hora</option>
+        <option value="120">2 horas</option>
+      </select>
+    </div>
+    <div class="timer-btns">
+      <button class="timer-btn start" onclick="timerStart()" aria-label="Iniciar">▶</button>
+      <button class="timer-btn pause" onclick="timerPause()" aria-label="Pausar">⏸</button>
+      <button class="timer-btn reset" onclick="timerReset()" aria-label="Resetar">↺</button>
+    </div>
+  </div>
+
+  <!-- ── HERO ────────────────────────── -->
+  <header class="hero" role="banner">
+    <div class="hero-badge">🎯 Módulo 2 dTagliari</div>
+    <h1>Simulador de Prova II</h1>
+    <p>Prepare-se com quizzes por tópicos, simuladores práticos de requisições API, validações de JSON em tempo real,
+      depuração do DOM e um simulado geral completo.</p>
+    <div class="hero-stats">
+      <div class="stat-pill"><span class="num">6</span><span class="lbl">Tópicos</span></div>
+      <div class="stat-pill"><span class="num">35</span><span class="lbl">Questões</span></div>
+      <div class="stat-pill"><span class="num">10</span><span class="lbl">Flashcards</span></div>
+      <div class="stat-pill"><span class="num" id="check-stat">0%</span><span class="lbl">Progresso</span></div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: EXAM TRAINER OVERVIEW
+    ═══════════════════════════════════════════════ -->
+    <section id="trainer" aria-labelledby="h-trainer">
+      <div class="section-header">
+        <span class="section-tag">Início</span>
+        <h2 id="h-trainer">🎯 Como revisar o Módulo 2</h2>
+      </div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">📡</div>
+          <h3>Cliente-Servidor</h3>
+          <p>Entenda o ciclo Request/Response e as regras de DNS, cabeçalhos, verbos HTTP e JSON na prática.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>DOM & Eventos</h3>
+          <p>Aprenda a depurar códigos com seletores querySelector, criação de nós createElement e listeners.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔗</div>
+          <h3>Fetch & JSON</h3>
+          <p>Valide strings JSON e envie verbos assíncronos (GET, POST, PUT, DELETE) com o terminal de rede.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💾</div>
+          <h3>Armazenamento</h3>
+          <p>Teste LocalStorage, SessionStorage e Cookies gerenciando chaves e valores diretamente.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🔒</div>
+          <h3>Segurança</h3>
+          <p>Simule a política CORS, vulnerabilidades XSS/CSRF e testes de autorização por papéis.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🏗️</div>
+          <h3>Frameworks</h3>
+          <p>Descubra como o estado reativo e o Virtual DOM aceleram páginas SPA em comparação ao JS Vanilla.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TOPIC 1: CLIENT-SERVER ARCHITECTURE
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-client-server" aria-labelledby="h-cs">
+      <div class="section-header">
+        <span class="section-tag">Tópico 1</span>
+        <h2 id="h-cs">Client-Server Architecture <span class="random-badge">Quiz</span></h2>
+      </div>
+
+      <div class="quiz-wrap" id="qz-qcs-wrap">
+        <div class="qz-progress-row">
+          <span class="qz-counter" id="qcs-counter">Questão 1 de 7</span>
+          <div class="qz-bar-bg">
+            <div class="qz-bar-fill" id="qcs-bar" style="width:14.28%"></div>
+          </div>
+          <span class="qz-score-badge" id="qcs-score">✓ 0</span>
+        </div>
+        <div id="qcs-area">
+          <p class="qz-question" id="qcs-q" aria-live="polite"></p>
+          <div class="qz-options" id="qcs-opts" role="radiogroup"></div>
+          <div class="qz-feedback" id="qcs-fb" aria-live="polite" style="display:none;"></div>
+          <div class="flex-row">
+            <button class="btn btn-primary" id="qcs-next" onclick="csQuizNext()" disabled>Próxima →</button>
+            <button class="btn btn-ghost" id="qcs-restart" onclick="csQuizRestart()" style="display:none">↺
+              Reiniciar</button>
+          </div>
+        </div>
+        <div class="qz-result hidden" id="qcs-result">
+          <div class="big-score" id="qcs-big"></div>
+          <p class="msg" id="qcs-msg"></p>
+          <button class="btn btn-primary" onclick="csQuizRestart()">↺ Tentar Novamente</button>
+        </div>
+      </div>
+
+      <div class="demo-panel mt-3">
+        <h3>📡 Simulador de Fluxo Request/Response</h3>
+        <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:1.5rem;">Clique no botão abaixo para ver o passo a
+          passo sequencial de uma chamada HTTP de ponta a ponta na rede.</p>
+
+        <div id="cs-steps" style="margin-bottom: 1.5rem;">
+          <div class="dns-step" id="cs-step-0">
+            <div class="dns-step-num">1</div>
+            <div class="dns-step-text">Cliente (Browser) dispara requisição: <code>GET /api/users</code></div>
+          </div>
+          <div class="dns-step" id="cs-step-1">
+            <div class="dns-step-num">2</div>
+            <div class="dns-step-text">Resolução DNS traduz domínio em IP e abre conexão TCP/TLS</div>
+          </div>
+          <div class="dns-step" id="cs-step-2">
+            <div class="dns-step-num">3</div>
+            <div class="dns-step-text">Servidor recebe cabeçalhos HTTP e valida rota com Controller/Router</div>
+          </div>
+          <div class="dns-step" id="cs-step-3">
+            <div class="dns-step-num">4</div>
+            <div class="dns-step-text">Controller consulta Banco de Dados e processa serialização em JSON</div>
+          </div>
+          <div class="dns-step" id="cs-step-4">
+            <div class="dns-step-num">5</div>
+            <div class="dns-step-text">Servidor envia resposta <code>200 OK</code> com o JSON de usuários de volta</div>
+          </div>
+        </div>
+
+        <button class="btn btn-primary" id="cs-sim-btn" onclick="runClientServerSimulation()">Iniciar Simulação</button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TOPIC 2: DOM & EVENTS
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-dom-events" aria-labelledby="h-dom">
+      <div class="section-header">
+        <span class="section-tag">Tópico 2</span>
+        <h2 id="h-dom">DOM Manipulation & Events <span class="random-badge">Quiz</span></h2>
+      </div>
+
+      <div class="quiz-wrap" id="qz-qdom-wrap">
+        <div class="qz-progress-row">
+          <span class="qz-counter" id="qdom-counter">Questão 1 de 4</span>
+          <div class="qz-bar-bg">
+            <div class="qz-bar-fill" id="qdom-bar" style="width:25%"></div>
+          </div>
+          <span class="qz-score-badge" id="qdom-score">✓ 0</span>
+        </div>
+        <div id="qdom-area">
+          <p class="qz-question" id="qdom-q" aria-live="polite"></p>
+          <div class="qz-options" id="qdom-opts" role="radiogroup"></div>
+          <div class="qz-feedback" id="qdom-fb" aria-live="polite" style="display:none;"></div>
+          <div class="flex-row">
+            <button class="btn btn-primary" id="qdom-next" onclick="domQuizNext()" disabled>Próxima →</button>
+            <button class="btn btn-ghost" id="qdom-restart" onclick="domQuizRestart()" style="display:none">↺
+              Reiniciar</button>
+          </div>
+        </div>
+        <div class="qz-result hidden" id="qdom-result">
+          <div class="big-score" id="qdom-big"></div>
+          <p class="msg" id="qdom-msg"></p>
+          <button class="btn btn-primary" onclick="domQuizRestart()">↺ Tentar Novamente</button>
+        </div>
+      </div>
+
+      <div class="section-header mt-3" style="border-top:none;padding-bottom:0.5rem;margin-top:2rem;">
+        <span class="section-tag">Exercício</span>
+        <h2 style="font-size:1.1rem;">🔧 Corrija o JavaScript DOM Quebrado</h2>
+      </div>
+      <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:1.5rem;">✍️ <strong>Instrução:</strong> Identifique e
+        corrija os erros de APIs do DOM nos editores editáveis abaixo e clique em <strong>Validar</strong>.</p>
+
+      <!-- Exercise 1 -->
+      <div class="fth-exercise">
+        <div class="fth-header">
+          <h4>#1 — Ouvinte de clique incorreto</h4>
+          <span class="fth-badge broken">⚠ Incorreto</span>
+        </div>
+        <div class="fth-body">
+          <div class="fth-code-area" id="fth-editor-1" contenteditable="true" spellcheck="false">// Corrija a sintaxe de seleção e adicione o listener de clique
+const botao = document.getElementByClass('btn-submit');
+botao.onclick = function() {
+  console.log('Clicado');
+};</div>
+          <div class="flex-row mb-1">
+            <button class="btn btn-primary" onclick="validateDOMFix(1)">Validar</button>
+            <button class="btn btn-ghost" onclick="showFix('domfix1')">Ver Correção</button>
+          </div>
+          <div id="fth-fb-1" class="fth-feedback"></div>
+          <div class="fth-answer" id="domfix1">
+            <pre class="fth-code-area">// Correção Recomendada:
+const botao = document.querySelector('.btn-submit');
+botao.addEventListener('click', () => {
+  console.log('Clicado');
+});</pre>
+            <div class="info-box mt-1"
+              style="background:var(--bg3);padding:0.75rem;border-radius:6px;font-size:0.8rem;color:var(--txt2);">
+              <strong>Erros corrigidos:</strong> (1) <code>getElementByClass</code> não existe. O correto para classes é
+              <code>querySelector('.nome-classe')</code>. (2) Usar <code>addEventListener</code> separa a lógica e evita
+              sobrescrita de propriedades inline.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Exercise 2 -->
+      <div class="fth-exercise">
+        <div class="fth-header">
+          <h4>#2 — Submissão de Formulário com Reload</h4>
+          <span class="fth-badge broken">⚠ Incorreto</span>
+        </div>
+        <div class="fth-body">
+          <div class="fth-code-area" id="fth-editor-2" contenteditable="true" spellcheck="false">// Capture o envio e extraia o valor do input corretamente sem recarregar
+document.querySelector('form').addEventListener('submit', function(e) {
+  const emailVal = document.querySelector('#input-email').value();
+  console.log('Enviar para:', emailVal);
+});</div>
+          <div class="flex-row mb-1">
+            <button class="btn btn-primary" onclick="validateDOMFix(2)">Validar</button>
+            <button class="btn btn-ghost" onclick="showFix('domfix2')">Ver Correção</button>
+          </div>
+          <div id="fth-fb-2" class="fth-feedback"></div>
+          <div class="fth-answer" id="domfix2">
+            <pre class="fth-code-area">// Correção Recomendada:
+document.querySelector('form').addEventListener('submit', function(e) {
+  e.preventDefault(); // Evita recarregamento da página
+  const emailVal = document.querySelector('#input-email').value; // Apenas .value, sem chamá-lo
+  console.log('Enviar para:', emailVal);
+});</pre>
+            <div class="info-box mt-1"
+              style="background:var(--bg3);padding:0.75rem;border-radius:6px;font-size:0.8rem;color:var(--txt2);">
+              <strong>Correções:</strong> (1) <code>e.preventDefault()</code> impede o comportamento padrão do form
+              (recarregar). (2) <code>.value</code> é uma propriedade, não uma função; usá-lo como <code>.value()</code>
+              gera um erro de execução.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TOPIC 3: AJAX, FETCH & JSON
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-ajax-json" aria-labelledby="h-fetch">
+      <div class="section-header">
+        <span class="section-tag">Tópico 3</span>
+        <h2 id="h-fetch">AJAX, Fetch & JSON <span class="random-badge">Quiz</span></h2>
+      </div>
+
+      <div class="quiz-wrap" id="qz-qfch-wrap">
+        <div class="qz-progress-row">
+          <span class="qz-counter" id="qfch-counter">Questão 1 de 6</span>
+          <div class="qz-bar-bg">
+            <div class="qz-bar-fill" id="qfch-bar" style="width:16.67%"></div>
+          </div>
+          <span class="qz-score-badge" id="qfch-score">✓ 0</span>
+        </div>
+        <div id="qfch-area">
+          <p class="qz-question" id="qfch-q" aria-live="polite"></p>
+          <div class="qz-options" id="qfch-opts" role="radiogroup"></div>
+          <div class="qz-feedback" id="qfch-fb" aria-live="polite" style="display:none;"></div>
+          <div class="flex-row">
+            <button class="btn btn-primary" id="qfch-next" onclick="fetchQuizNext()" disabled>Próxima →</button>
+            <button class="btn btn-ghost" id="qfch-restart" onclick="fetchQuizRestart()" style="display:none">↺
+              Reiniciar</button>
+          </div>
+        </div>
+        <div class="qz-result hidden" id="qfch-result">
+          <div class="big-score" id="qfch-big"></div>
+          <p class="msg" id="qfch-msg"></p>
+          <button class="btn btn-primary" onclick="fetchQuizRestart()">↺ Tentar Novamente</button>
+        </div>
+      </div>
+
+      <!-- JSON Validator -->
+      <div class="demo-panel mt-3">
+        <h3>📄 Analisador e Validador de JSON</h3>
+        <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:1rem;">Digite ou edite o JSON abaixo para testar o
+          parser do navegador em tempo real.</p>
+        <textarea id="sandbox-json-text" class="form-input"
+          style="width:100%;height:120px;font-family:'Fira Code',monospace;margin-bottom:1rem;resize:vertical;">{
+  "nome": "Douglas Tagliari",
+  "cargo": "Desenvolvedor",
+  "tecnologias": ["HTML", "CSS", "JavaScript", "JSON"],
+  "ativo": true
+}</textarea>
+        <div class="flex-row">
+          <button class="btn btn-primary" onclick="executeJsonValidator()">Validar JSON</button>
+        </div>
+        <pre class="sim-console" id="sandbox-json-console">// O resultado da validação aparecerá aqui...</pre>
+      </div>
+
+      <!-- API Request Lab -->
+      <div class="demo-panel mt-3">
+        <h3>🌐 HTTP REST API Sandbox Lab</h3>
+        <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:1rem;">Escolha o verbo HTTP e envie chamadas API
+          simuladas para testar o fluxo de rede do lado cliente.</p>
+        <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <select class="form-input" id="sandbox-api-verb" style="max-width:120px;">
+            <option value="GET">GET (Buscar)</option>
+            <option value="POST">POST (Criar)</option>
+            <option value="PUT">PUT (Substituir)</option>
+            <option value="DELETE">DELETE (Remover)</option>
+          </select>
+          <input type="text" class="form-input" id="sandbox-api-url" style="flex-grow:1;" value="/users/33">
+          <button class="btn btn-primary" onclick="executeSandboxApi()">Chamar API</button>
+        </div>
+        <pre class="sim-console" id="sandbox-api-console">// Logs de rede do simulador aparecerão aqui...</pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TOPIC 4: WEB STORAGE
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-storage" aria-labelledby="h-storage">
+      <div class="section-header">
+        <span class="section-tag">Tópico 4</span>
+        <h2 id="h-storage">Web Storage (LocalStorage) <span class="random-badge">Quiz</span></h2>
+      </div>
+
+      <div class="quiz-wrap" id="qz-qstg-wrap">
+        <div class="qz-progress-row">
+          <span class="qz-counter" id="qstg-counter">Questão 1 de 3</span>
+          <div class="qz-bar-bg">
+            <div class="qz-bar-fill" id="qstg-bar" style="width:33.3%"></div>
+          </div>
+          <span class="qz-score-badge" id="qstg-score">✓ 0</span>
+        </div>
+        <div id="qstg-area">
+          <p class="qz-question" id="qstg-q" aria-live="polite"></p>
+          <div class="qz-options" id="qstg-opts" role="radiogroup"></div>
+          <div class="qz-feedback" id="qstg-fb" aria-live="polite" style="display:none;"></div>
+          <div class="flex-row">
+            <button class="btn btn-primary" id="qstg-next" onclick="storageQuizNext()" disabled>Próxima →</button>
+            <button class="btn btn-ghost" id="qstg-restart" onclick="storageQuizRestart()" style="display:none">↺
+              Reiniciar</button>
+          </div>
+        </div>
+        <div class="qz-result hidden" id="qstg-result">
+          <div class="big-score" id="qstg-big"></div>
+          <p class="msg" id="qstg-msg"></p>
+          <button class="btn btn-primary" onclick="storageQuizRestart()">↺ Tentar Novamente</button>
+        </div>
+      </div>
+
+      <!-- Web Storage Playground -->
+      <div class="demo-panel mt-3">
+        <h3>💾 LocalStorage Playground Explorer</h3>
+        <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:1rem;">Salve chaves e valores no LocalStorage e
+          manipule o banco de dados interno do navegador.</p>
+        <div style="display:flex;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap;">
+          <input type="text" class="form-input" id="sandbox-key" placeholder="Chave (Ex: nome)"
+            style="max-width:200px;">
+          <input type="text" class="form-input" id="sandbox-val" placeholder="Valor (Ex: Douglas)"
+            style="max-width:200px;">
+          <button class="btn btn-primary" onclick="executeSandboxSave()">Salvar Chave</button>
+          <button class="btn btn-ghost" onclick="executeSandboxLoad()">Carregar</button>
+        </div>
+        <pre class="sim-console" id="sandbox-storage-console"
+          style="min-height:60px;">// Logs do playground aparecerão aqui...</pre>
+
+        <h4
+          style="margin-top:1.5rem;font-size:0.85rem;text-transform:uppercase;color:var(--primary);margin-bottom:0.5rem;">
+          Chaves Ativas no LocalStorage:</h4>
+        <div id="sandbox-active-keys" style="display:flex;flex-wrap:wrap;gap:0.5rem;">
+          <!-- Active keys rendering -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TOPIC 5: WEB SECURITY
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-security" aria-labelledby="h-sec">
+      <div class="section-header">
+        <span class="section-tag">Tópico 5</span>
+        <h2 id="h-sec">Web Security & Roles <span class="random-badge">Quiz</span></h2>
+      </div>
+
+      <div class="quiz-wrap" id="qz-qsec-wrap">
+        <div class="qz-progress-row">
+          <span class="qz-counter" id="qsec-counter">Questão 1 de 4</span>
+          <div class="qz-bar-bg">
+            <div class="qz-bar-fill" id="qsec-bar" style="width:25%"></div>
+          </div>
+          <span class="qz-score-badge" id="qsec-score">✓ 0</span>
+        </div>
+        <div id="qsec-area">
+          <p class="qz-question" id="qsec-q" aria-live="polite"></p>
+          <div class="qz-options" id="qsec-opts" role="radiogroup"></div>
+          <div class="qz-feedback" id="qsec-fb" aria-live="polite" style="display:none;"></div>
+          <div class="flex-row">
+            <button class="btn btn-primary" id="qsec-next" onclick="securityQuizNext()" disabled>Próxima →</button>
+            <button class="btn btn-ghost" id="qsec-restart" onclick="securityQuizRestart()" style="display:none">↺
+              Reiniciar</button>
+          </div>
+        </div>
+        <div class="qz-result hidden" id="qsec-result">
+          <div class="big-score" id="qsec-big"></div>
+          <p class="msg" id="qsec-msg"></p>
+          <button class="btn btn-primary" onclick="securityQuizRestart()">↺ Tentar Novamente</button>
+        </div>
+      </div>
+
+      <!-- Role authorization simulator -->
+      <div class="demo-panel mt-3">
+        <h3>🔑 Painel de Simulação de Autorização (Roles)</h3>
+        <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:1rem;">Troque a função (Role) ativa e verifique
+          quais privilégios de acesso o sistema concede em tempo de execução.</p>
+        <div class="flex-row mb-2" style="margin-bottom: 1.25rem;">
+          <button class="btn btn-primary" onclick="selectSandboxRole('guest', this)">Guest (Visitante)</button>
+          <button class="btn btn-ghost" onclick="selectSandboxRole('user', this)">User (Usuário)</button>
+          <button class="btn btn-ghost" onclick="selectSandboxRole('admin', this)">Admin (Administrador)</button>
+        </div>
+        <div class="card-grid" id="sandbox-role-grid">
+          <div class="role-card allowed" id="sim-card-read">
+            <span>📖 Leitura de Dados Pessoais</span>
+            <span class="role-status-icon" style="font-weight:bold;color:var(--green)">🔓 Permitido</span>
+          </div>
+          <div class="role-card denied" id="sim-card-edit">
+            <span>✍️ Edição de Postagens</span>
+            <span class="role-status-icon" style="font-weight:bold;color:var(--accent)">🔒 Bloqueado</span>
+          </div>
+          <div class="role-card denied" id="sim-card-admin">
+            <span>⚙️ Dashboard Admin (Gerência)</span>
+            <span class="role-status-icon" style="font-weight:bold;color:var(--accent)">🔒 Bloqueado</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         TOPIC 6: FRAMEWORKS & REACTIVE STATE
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-frameworks" aria-labelledby="h-fwk">
+      <div class="section-header">
+        <span class="section-tag">Tópico 6</span>
+        <h2 id="h-fwk">Frameworks & Reactivity <span class="random-badge">Quiz</span></h2>
+      </div>
+
+      <div class="quiz-wrap" id="qz-qfwk-wrap">
+        <div class="qz-progress-row">
+          <span class="qz-counter" id="qfwk-counter">Questão 1 de 2</span>
+          <div class="qz-bar-bg">
+            <div class="qz-bar-fill" id="qfwk-bar" style="width:50%"></div>
+          </div>
+          <span class="qz-score-badge" id="qfwk-score">✓ 0</span>
+        </div>
+        <div id="qfwk-area">
+          <p class="qz-question" id="qfwk-q" aria-live="polite"></p>
+          <div class="qz-options" id="qfwk-opts" role="radiogroup"></div>
+          <div class="qz-feedback" id="qfwk-fb" aria-live="polite" style="display:none;"></div>
+          <div class="flex-row">
+            <button class="btn btn-primary" id="qfwk-next" onclick="frameworksQuizNext()" disabled>Próxima →</button>
+            <button class="btn btn-ghost" id="qfwk-restart" onclick="frameworksQuizRestart()" style="display:none">↺
+              Reiniciar</button>
+          </div>
+        </div>
+        <div class="qz-result hidden" id="qfwk-result">
+          <div class="big-score" id="qfwk-big"></div>
+          <p class="msg" id="qfwk-msg"></p>
+          <button class="btn btn-primary" onclick="frameworksQuizRestart()">↺ Tentar Novamente</button>
+        </div>
+      </div>
+
+      <!-- Reactivity Simulator -->
+      <div class="demo-panel mt-3">
+        <h3>🏗️ Simulador de Estado Reativo vs Virtual DOM</h3>
+        <p style="font-size:0.85rem;color:var(--txt2);margin-bottom:1rem;">Incrementando o estado, o framework calcula a
+          árvore Virtual DOM comparando-a (diff) para re-renderizar apenas o necessário.</p>
+        <div style="display:flex;gap:1.5rem;align-items:center;margin-bottom:1rem;flex-wrap:wrap;">
+          <div class="stat-pill" style="margin:0;cursor:pointer;user-select:none;" onclick="incrementReactiveState()">
+            <span class="num" id="framework-state-val">0</span>
+            <span class="lbl">Clique para Mudar Estado</span>
+          </div>
+          <div id="framework-dom-val"
+            style="font-weight:bold;font-size:1rem;color:var(--primary);padding:1rem;border:1px solid var(--border);border-radius:8px;background:var(--bg3);">
+            Página Renderizada (Contagem: 0)
+          </div>
+        </div>
+        <pre class="sim-console" id="vdom-diff-log">// Log das alterações em tempo real do Virtual DOM...</pre>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: FLASHCARDS
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-flashcards" aria-labelledby="h-flash">
+      <div class="section-header">
+        <span class="section-tag">Memorização</span>
+        <h2 id="h-flash">🃏 Flashcards do Módulo 2</h2>
+      </div>
+      <p style="color:var(--txt2);font-size:0.85rem;margin-bottom:1.5rem;">Clique no cartão abaixo para revelar o
+        gabarito. Use a barra de navegação para alternar entre os cartões.</p>
+
+      <div class="flashcard-scene" id="fc-m2-scene" tabindex="0" onclick="flipCard('fc-m2-scene')">
+        <div class="flashcard-inner">
+          <div class="flashcard-front">
+            <span class="fc-hint">Clique para Virar</span>
+            <div class="fc-term" id="fc-m2-term">document.querySelector()</div>
+            <div class="fc-category" id="fc-m2-cat">DOM API</div>
+          </div>
+          <div class="flashcard-back">
+            <div class="fc-answer" id="fc-m2-answer">Busca e retorna o primeiro elemento no DOM que casa com o seletor
+              CSS informado (ex: "#id" ou ".class").</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fc-nav">
+        <button class="btn btn-ghost" onclick="prevCard()">◀ Anterior</button>
+        <span class="fc-counter" id="fc-m2-counter">1 / 10</span>
+        <button class="btn btn-ghost" onclick="nextCard()">Próxima ▶</button>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: WRITTEN STUDY QUESTIONS
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-written" aria-labelledby="h-written">
+      <div class="section-header">
+        <span class="section-tag">Prática</span>
+        <h2 id="h-written">✍️ Perguntas Dissertativas da Prova</h2>
+      </div>
+      <p style="color:var(--txt2);font-size:0.85rem;margin-bottom:1.5rem;">Responda às questões e depois confronte com
+        os gabaritos oficiais sugeridos para a segunda prova.</p>
+
+      <!-- Question 1 -->
+      <div class="written-card">
+        <h4><span class="q-num">1</span> Explique a diferença de persistência entre LocalStorage e SessionStorage.</h4>
+        <textarea placeholder="Escreva sua resposta teórica aqui..." id="ans-1"></textarea>
+        <div class="flex-row">
+          <button class="btn btn-primary" onclick="showModel('model-1')">Ver Gabarito</button>
+          <button class="btn btn-ghost" onclick="clearAnswer('ans-1')">Limpar</button>
+        </div>
+        <div class="model-answer mt-2" id="model-1">
+          <strong>Gabarito Oficial:</strong> O <code>LocalStorage</code> persiste os dados sem data de validade definida
+          (permanecem salvos no navegador do cliente mesmo se fechar a aba ou reiniciar a máquina). O
+          <code>SessionStorage</code> limpa e apaga todas as chaves criadas assim que a sessão da aba correspondente é
+          encerrada pelo usuário.
+        </div>
+      </div>
+
+
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: LIVE CODING CHALLENGE
+    ═══════════════════════════════════════════════ -->
+    <section id="sec-challenge" aria-labelledby="h-challenge">
+      <div class="section-header">
+        <span class="section-tag">Desafio</span>
+        <h2 id="h-challenge">🛠️ Desafio Prático: Consumo Assíncrono e DOM</h2>
+      </div>
+
+      <div class="info-box mb-2"
+        style="background:var(--bg2);padding:1rem;border-radius:8px;border:1px solid var(--border);font-size:0.85rem;color:var(--txt2);margin-bottom:1.5rem;">
+        <strong>Instruções do Desafio:</strong> Escreva um script completo no editor abaixo que selecione o elemento
+        pontilhado com ID <code>"target"</code>, configure um evento de clique que altere seu texto via
+        <code>textContent</code>, dispare uma chamada <code>fetch</code> assíncrona, e salve o valor no
+        <code>localStorage</code>. Clique em <strong>Validar Código</strong> para pontuar.
+      </div>
+
+      <div class="challenge-score-bar" style="margin-bottom: 1.5rem;">
+        <div class="csb-header">
+          <span class="csb-label">Critérios do Validador</span>
+          <span class="csb-pct" id="challenge-pct">0%</span>
+        </div>
+        <div class="csb-bar-bg">
+          <div class="csb-bar-fill" id="challenge-bar" style="width:0%"></div>
+        </div>
+        <div style="margin-top:0.75rem;font-size:0.8rem;color:var(--txt2);" id="challenge-msg">Escreva o script
+          JavaScript no painel abaixo!</div>
+      </div>
+
+      <div class="challenge-grid" id="challenge-grid" style="margin-bottom: 1.5rem;">
+        <!-- Rendered by JS -->
+      </div>
+
+      <div class="playground-wrap">
+        <div class="pg-col">
+          <div class="pg-header">
+            <span>💻 app.js</span>
+            <button class="btn btn-primary" onclick="validatePlayground()"
+              style="padding: 0.2rem 0.75rem; font-size: 0.75rem;">✅ Validar Código</button>
+          </div>
+          <textarea id="pg-editor" class="pg-editor" spellcheck="false" placeholder="Escreva seu script JS aqui...">// Selecione o nó #target, escute o clique, chame um fetch e guarde no LocalStorage
+const target = document.querySelector('#target');
+target.addEventListener('click', () => {
+  target.textContent = "Carregando...";
+  localStorage.setItem('requisicao_ativa', 'sim');
+  fetch('https://api.universidade.edu/users/1')
+    .then(r => r.json())
+    .then(d => {
+      target.textContent = "Sucesso!";
+    });
+});</textarea>
+        </div>
+        <div class="pg-col">
+          <div class="pg-header">
+            <span>👁️ Sandbox Executora</span>
+          </div>
+          <iframe id="pg-preview" class="pg-preview" title="Live Preview"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: MAIN SIMULADO EXAM
+    ═══════════════════════════════════════════════ -->
+    <section id="quiz-section" aria-labelledby="quiz-heading">
+      <div class="section-header">
+        <span class="section-tag">Simulado Geral</span>
+        <h2 id="quiz-heading">🧠 Simulado Completo: Módulo 2</h2>
+      </div>
+
+      <div class="quiz-wrap" role="form" aria-label="Simulado de prova módulo 2">
+        <div class="qz-progress-row">
+          <span class="qz-counter" id="quiz-counter" aria-live="polite">Questão 1 de 9</span>
+          <div class="qz-bar-bg" role="progressbar" aria-valuenow="9" aria-valuemin="0" aria-valuemax="100">
+            <div class="qz-bar-fill" id="quiz-bar" style="width:11.11%"></div>
+          </div>
+          <span id="quiz-score-live" class="qz-score-badge">✓ 0</span>
+        </div>
+
+        <div id="quiz-area">
+          <p class="qz-question" id="quiz-q" aria-live="polite"></p>
+          <div class="qz-options" id="quiz-opts" role="radiogroup" aria-labelledby="quiz-q"></div>
+          <div class="qz-feedback" id="quiz-feedback" aria-live="polite" style="display:none;"></div>
+          <div class="flex-row">
+            <button class="btn btn-primary" id="quiz-next" onclick="nextQuestion()" disabled>Próxima →</button>
+            <button class="btn btn-ghost" id="quiz-restart" onclick="restartQuiz()" style="display:none">↺
+              Reiniciar</button>
+          </div>
+        </div>
+
+        <div class="qz-result hidden" id="quiz-result" aria-live="polite">
+          <div class="big-score" id="quiz-final-score"></div>
+          <p class="msg" id="quiz-result-msg"></p>
+          <button class="btn btn-primary" onclick="restartQuiz()">↺ Tentar Novamente</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: CHEAT SHEET TABLE REFERENCE
+    ═══════════════════════════════════════════════ -->
+    <section id="cheatsheet" aria-labelledby="cheat-heading">
+      <div class="section-header">
+        <span class="section-tag">Resumo</span>
+        <h2 id="cheat-heading">📋 Módulo 2 Quick Cheat Sheet</h2>
+      </div>
+
+      <div class="cheat-tabs" role="tablist">
+        <button class="cheat-tab active" role="tab" aria-selected="true" id="tab-dom" onclick="switchTab('dom')">DOM &
+          Eventos</button>
+        <button class="cheat-tab" role="tab" aria-selected="false" id="tab-async"
+          onclick="switchTab('async')">Assincronismo & JSON</button>
+        <button class="cheat-tab" role="tab" aria-selected="false" id="tab-security"
+          onclick="switchTab('security')">Segurança & Storage</button>
+        <button class="cheat-tab" role="tab" aria-selected="false" id="tab-frameworks"
+          onclick="switchTab('frameworks')">Frameworks (React/Vue)</button>
+      </div>
+
+      <div class="cheat-panel active" id="panel-dom" role="tabpanel">
+        <table class="cheat-table">
+          <thead>
+            <tr>
+              <th>Método / Propriedade</th>
+              <th>Sintaxe Básica</th>
+              <th>Descrição Curta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>document.querySelector</code></td>
+              <td><code>document.querySelector('.class')</code></td>
+              <td>Seleciona o primeiro nó correspondente ao seletor CSS.</td>
+            </tr>
+            <tr>
+              <td><code>document.querySelectorAll</code></td>
+              <td><code>document.querySelectorAll('div')</code></td>
+              <td>Seleciona todos os nós correspondentes retornando uma NodeList.</td>
+            </tr>
+            <tr>
+              <td><code>document.createElement</code></td>
+              <td><code>document.createElement('div')</code></td>
+              <td>Instancia um novo nó de elemento HTML na memória do navegador.</td>
+            </tr>
+            <tr>
+              <td><code>.appendChild</code></td>
+              <td><code>pai.appendChild(filho)</code></td>
+              <td>Insere um nó filho no final do fluxo interno do elemento pai.</td>
+            </tr>
+            <tr>
+              <td><code>.textContent</code></td>
+              <td><code>el.textContent = "Olá"</code></td>
+              <td>Define o texto de forma limpa, sanitizando contra injeção de HTML.</td>
+            </tr>
+            <tr>
+              <td><code>.addEventListener</code></td>
+              <td><code>el.addEventListener('click', callback)</code></td>
+              <td>Registra um manipulador de disparo para o evento selecionado.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cheat-panel" id="panel-async" role="tabpanel">
+        <table class="cheat-table">
+          <thead>
+            <tr>
+              <th>Função / Verbo</th>
+              <th>Exemplo de Chamada</th>
+              <th>Significado Tecnológico</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>fetch()</code></td>
+              <td><code>fetch('https://api.com/users')</code></td>
+              <td>Dispara requisição HTTP assíncrona retornando Promise.</td>
+            </tr>
+            <tr>
+              <td><code>async / await</code></td>
+              <td><code>const res = await fetch(...)</code></td>
+              <td>Define funções assíncronas permitindo escrita sequencial.</td>
+            </tr>
+            <tr>
+              <td><code>JSON.stringify</code></td>
+              <td><code>JSON.stringify(objeto)</code></td>
+              <td>Serializa estruturas e objetos JS em strings de texto JSON.</td>
+            </tr>
+            <tr>
+              <td><code>JSON.parse</code></td>
+              <td><code>JSON.parse(stringJson)</code></td>
+              <td>Deserializa strings formatadas em JSON de volta para objetos.</td>
+            </tr>
+            <tr>
+              <td><code>GET / POST</code></td>
+              <td><code>GET (Leitura) / POST (Criação)</code></td>
+              <td>Verbos HTTP para buscar dados ou enviar payloads no Body.</td>
+            </tr>
+            <tr>
+              <td><code>PUT / DELETE</code></td>
+              <td><code>PUT (Update) / DELETE (Remoção)</code></td>
+              <td>Verbos HTTP para atualizar completos ou excluir recursos remotos.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cheat-panel" id="panel-security" role="tabpanel">
+        <table class="cheat-table">
+          <thead>
+            <tr>
+              <th>Termo de Segurança</th>
+              <th>Escopo de Aplicação</th>
+              <th>Como se Prevenir / Resolver</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>LocalStorage</code></td>
+              <td>Persistência chave-valor de origem de longa duração.</td>
+              <td>Não guarde tokens sensíveis ou senhas descriptografadas.</td>
+            </tr>
+            <tr>
+              <td><code>SessionStorage</code></td>
+              <td>Persistência chave-valor associada estritamente à aba.</td>
+              <td>Ideal para fluxos temporários ou estados pontuais da sessão.</td>
+            </tr>
+            <tr>
+              <td><code>Same-Origin Policy</code></td>
+              <td>Restrição nativa que isola scripts de origens externas.</td>
+              <td>Forte barreira de sandbox ativa em todos os navegadores modernos.</td>
+            </tr>
+            <tr>
+              <td><code>CORS</code></td>
+              <td>Configuração de liberação de chamadas remotas no servidor.</td>
+              <td>Configurar cabeçalhos HTTP como <code>Access-Control-Allow-Origin</code>.</td>
+            </tr>
+            <tr>
+              <td><code>XSS (Injeção de Scripts)</code></td>
+              <td>Ataque de execução de código JS nocivo no browser alheio.</td>
+              <td>Use <code>textContent</code> e evite <code>innerHTML</code> sem sanitizar.</td>
+            </tr>
+            <tr>
+              <td><code>Autenticação vs Autorização</code></td>
+              <td>Identificação do cliente vs validação de permissões de acesso.</td>
+              <td>Controle por cookies <code>HttpOnly</code> ou tokens assinados.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cheat-panel" id="panel-frameworks" role="tabpanel">
+        <table class="cheat-table">
+          <thead>
+            <tr>
+              <th>Conceito de SPA</th>
+              <th>Vanilla JS</th>
+              <th>React / Vue.js / Angular</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>Modelagem UI</code></td>
+              <td>Imperativa (manipula nós um por um).</td>
+              <td>Declarativa (UI reage a alterações no estado).</td>
+            </tr>
+            <tr>
+              <td><code>Velocidade DOM</code></td>
+              <td>Lenta para atualizações massivas de nós.</td>
+              <td>Virtual DOM faz reconciliação cirúrgica performática.</td>
+            </tr>
+            <tr>
+              <td><code>Vite / npm</code></td>
+              <td>Configurações e dependências ad-hoc manuais.</td>
+              <td>Bundlers de build ultra-rápidos e gerência de pacotes NPM.</td>
+            </tr>
+            <tr>
+              <td><code>Componentização</code></td>
+              <td>Dificuldade em reuso de trechos dinâmicos.</td>
+              <td>Peças isoladas reutilizáveis com ciclo de vida.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════
+         SECTION: SELF-ASSESSMENT CHECKLIST
+    ═══════════════════════════════════════════════ -->
+    <section id="checklist" aria-labelledby="check-heading">
+      <div class="section-header">
+        <span class="section-tag">Autoavaliação</span>
+        <h2 id="check-heading">✅ O que já domino no Módulo 2?</h2>
+      </div>
+
+      <div class="checklist-grid" id="checklist-grid" role="list" aria-label="Lista de habilidades do modulo 2"></div>
+
+      <div class="checklist-summary" aria-live="polite">
+        <span class="progress-text"><strong id="check-count">0</strong> de <strong id="check-total">0</strong>
+          habilidades dominadas</span>
+        <div class="checklist-bar-bg" role="progressbar" aria-valuenow="0">
+          <div class="checklist-bar-fill" id="check-bar" style="width:0%"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo">
+    <a href="index.html">Douglas Tagliari</a> · <a href="modulo2.html">Voltar ao Módulo 2</a> · Versão 2026
+  </footer>
+
+  <button id="back-top" aria-label="Voltar ao topo">↑</button>
+
+  <!-- JAVASCRIPT — LOGIC AND DATA -->
+  <script src="revisao-second-test.js"></script>
+
+</body>
+
+</html>

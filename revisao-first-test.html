@@ -23,7 +23,7 @@
 
   <!-- ── NAVBAR ──────────────────────── -->
   <nav aria-label="Navegação principal">
-    <a href="index.html" class="nav-brand" aria-label="Portfólio Web URI">Tagliari Web Programming</a>
+    <a href="index.html" class="nav-brand" aria-label="Portfólio Web URI">Home</a>
 
     <ul class="nav-links" role="list">
       <li><a href="#trainer">🎯 Trainer</a></li>
@@ -41,7 +41,8 @@
       <li><a href="#quiz-section">Quiz</a></li>
       <li><a href="#cheatsheet">Cheat Sheet</a></li>
       <li><a href="#checklist">Checklist</a></li>
-      <li><a href="sorteador.html">🎲 Sorteador</a></li>
+      <li><a href="modulo1.html" class="nav-back">⬅ Voltar</a></li>
+
     </ul>
 
     <div class="nav-actions">
@@ -69,8 +70,8 @@
 
   <!-- ── HERO ────────────────────────── -->
   <header class="hero" role="banner">
-    <div class="hero-badge">🎯 Revisão — Programação Web URI - by dTagliari</div>
-    <h1>Treine para a Prova</h1>
+    <div class="hero-badge">🎯 Módulo 1 dTagliari</div>
+    <h1>Simulador de Prova I</h1>
     <p>Quizzes, flashcards, exercícios de correção, desafios práticos e revisão completa dos 12 módulos — tudo para você
       dominar o conteúdo antes da prova.</p>
     <div class="hero-stats">
@@ -174,27 +175,28 @@
           <h4>#1 — Link e imagem com erros</h4>
           <span class="fth-badge broken">⚠ Quebrado</span>
         </div>
-          <div class="fth-code-area" id="fth-editor-1" contenteditable="true" spellcheck="false">&lt;a href=""&gt;Clique aqui&lt;/a&gt;
-&lt;img src="foto.jpg"&gt;
-&lt;h1&gt;Título&lt;/h2&gt;</div>
-          <div class="flex-row mb-1">
-            <button class="btn btn-primary" onclick="validateFTH(1)" aria-label="Validar HTML">Validar</button>
-            <button class="btn btn-ghost" onclick="showFix('fix1')" aria-label="Ver correção">Ver Correção</button>
-          </div>
-          <div id="fth-fb-1" class="fth-feedback"></div>
-          <div class="fth-answer" id="fix1">
-            <div class="fth-code-area"><span class="fix">&lt;a href="https://exemplo.com"&gt;</span>Clique
-              aqui&lt;/a&gt;
-              &lt;img src="foto.jpg" <span class="fix">alt="Descrição da foto"</span>&gt;
-              &lt;h1&gt;Título&lt;<span class="fix">/h1</span>&gt;</div>
-            <div class="info-box mt-1">
-              <strong>3 erros:</strong> (1) &lt;a&gt; sem href válido — links precisam de destino. (2) &lt;img&gt; sem
-              <code class="fth-code-area"
-                style="display:inline;padding:0.1rem 0.35rem;border-radius:4px;font-size:0.78rem;background:rgba(88,166,255,0.1);color:var(--primary);">alt</code>
-              — obrigatório para acessibilidade e SEO. (3) Tag fechada errada (&lt;/h2&gt; ao invés de &lt;/h1&gt;).
-            </div>
+        <div class="fth-code-area" id="fth-editor-1" contenteditable="true" spellcheck="false">&lt;a href=""&gt;Clique
+          aqui&lt;/a&gt;
+          &lt;img src="foto.jpg"&gt;
+          &lt;h1&gt;Título&lt;/h2&gt;</div>
+        <div class="flex-row mb-1">
+          <button class="btn btn-primary" onclick="validateFTH(1)" aria-label="Validar HTML">Validar</button>
+          <button class="btn btn-ghost" onclick="showFix('fix1')" aria-label="Ver correção">Ver Correção</button>
+        </div>
+        <div id="fth-fb-1" class="fth-feedback"></div>
+        <div class="fth-answer" id="fix1">
+          <div class="fth-code-area"><span class="fix">&lt;a href="https://exemplo.com"&gt;</span>Clique
+            aqui&lt;/a&gt;
+            &lt;img src="foto.jpg" <span class="fix">alt="Descrição da foto"</span>&gt;
+            &lt;h1&gt;Título&lt;<span class="fix">/h1</span>&gt;</div>
+          <div class="info-box mt-1">
+            <strong>3 erros:</strong> (1) &lt;a&gt; sem href válido — links precisam de destino. (2) &lt;img&gt; sem
+            <code class="fth-code-area"
+              style="display:inline;padding:0.1rem 0.35rem;border-radius:4px;font-size:0.78rem;background:rgba(88,166,255,0.1);color:var(--primary);">alt</code>
+            — obrigatório para acessibilidade e SEO. (3) Tag fechada errada (&lt;/h2&gt; ao invés de &lt;/h1&gt;).
           </div>
         </div>
+      </div>
       </div>
 
       <!-- Exercise 2 -->
@@ -203,32 +205,32 @@
           <h4>#2 — Formulário mal estruturado</h4>
           <span class="fth-badge broken">⚠ Quebrado</span>
         </div>
-          <div class="fth-code-area" id="fth-editor-2" contenteditable="true" spellcheck="false">&lt;form&gt;
-&lt;input type="txt" name="nome"&gt;
-&lt;input type="email"&gt;
-&lt;input type="submit" value="Enviar"&gt;
-&lt;/form&gt;</div>
-          <div class="flex-row mb-1">
-            <button class="btn btn-primary" onclick="validateFTH(2)" aria-label="Validar HTML">Validar</button>
-            <button class="btn btn-ghost" onclick="showFix('fix2')" aria-label="Ver correção">Ver Correção</button>
+        <div class="fth-code-area" id="fth-editor-2" contenteditable="true" spellcheck="false">&lt;form&gt;
+          &lt;input type="txt" name="nome"&gt;
+          &lt;input type="email"&gt;
+          &lt;input type="submit" value="Enviar"&gt;
+          &lt;/form&gt;</div>
+        <div class="flex-row mb-1">
+          <button class="btn btn-primary" onclick="validateFTH(2)" aria-label="Validar HTML">Validar</button>
+          <button class="btn btn-ghost" onclick="showFix('fix2')" aria-label="Ver correção">Ver Correção</button>
+        </div>
+        <div id="fth-fb-2" class="fth-feedback"></div>
+        <div class="fth-answer" id="fix2">
+          <div class="fth-code-area">&lt;form action="/enviar" method="POST"&gt;
+            <span class="fix">&lt;label for="nome"&gt;Nome&lt;/label&gt;</span>
+            &lt;input <span class="fix">type="text"</span> id="nome" name="nome" <span class="fix">required</span>&gt;
+            <span class="fix">&lt;label for="email"&gt;E-mail&lt;/label&gt;</span>
+            &lt;input type="email" <span class="fix">id="email" name="email" required</span>&gt;
+            &lt;input type="submit" value="Enviar"&gt;
+            &lt;/form&gt;
           </div>
-          <div id="fth-fb-2" class="fth-feedback"></div>
-          <div class="fth-answer" id="fix2">
-            <div class="fth-code-area">&lt;form action="/enviar" method="POST"&gt;
-              <span class="fix">&lt;label for="nome"&gt;Nome&lt;/label&gt;</span>
-              &lt;input <span class="fix">type="text"</span> id="nome" name="nome" <span class="fix">required</span>&gt;
-              <span class="fix">&lt;label for="email"&gt;E-mail&lt;/label&gt;</span>
-              &lt;input type="email" <span class="fix">id="email" name="email" required</span>&gt;
-              &lt;input type="submit" value="Enviar"&gt;
-              &lt;/form&gt;
-            </div>
-            <div class="info-box mt-1"><strong>Erros corrigidos:</strong> (1) <code>type="txt"</code> →
-              <code>type="text"</code>. (2) inputs sem <code>label</code> associado (acessibilidade). (3) input de email
-              sem <code>name</code>. (4) form sem <code>action</code> e <code>method</code>. (5) campos sem
-              <code>required</code>.
-            </div>
+          <div class="info-box mt-1"><strong>Erros corrigidos:</strong> (1) <code>type="txt"</code> →
+            <code>type="text"</code>. (2) inputs sem <code>label</code> associado (acessibilidade). (3) input de email
+            sem <code>name</code>. (4) form sem <code>action</code> e <code>method</code>. (5) campos sem
+            <code>required</code>.
           </div>
         </div>
+      </div>
       </div>
 
       <!-- Exercise 3 -->
@@ -237,32 +239,32 @@
           <h4>#3 — Estrutura semântica incorreta</h4>
           <span class="fth-badge broken">⚠ Quebrado</span>
         </div>
-          <div class="fth-code-area" id="fth-editor-3" contenteditable="true" spellcheck="false">&lt;div id="header"&gt;
-  &lt;div&gt;&lt;a href="#"&gt;Home&lt;/a&gt; | &lt;a href="#"&gt;Sobre&lt;/a&gt;&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="main"&gt;
-  &lt;div&gt;&lt;h2&gt;Artigo&lt;/h2&gt;&lt;p&gt;Conteúdo...&lt;/p&gt;&lt;/div&gt;
-&lt;/div&gt;</div>
-          <div class="flex-row mb-1">
-            <button class="btn btn-primary" onclick="validateFTH(3)" aria-label="Validar HTML">Validar</button>
-            <button class="btn btn-ghost" onclick="showFix('fix3')" aria-label="Ver correção">Ver Correção</button>
-          </div>
-          <div id="fth-fb-3" class="fth-feedback"></div>
-          <div class="fth-answer" id="fix3">
-            <div class="fth-code-area"><span class="fix">&lt;header&gt;</span>
-              <span class="fix">&lt;nav&gt;</span>&lt;a href="#"&gt;Home&lt;/a&gt; | &lt;a
-              href="#"&gt;Sobre&lt;/a&gt;<span class="fix">&lt;/nav&gt;</span>
-              <span class="fix">&lt;/header&gt;</span>
-              <span class="fix">&lt;main&gt;</span>
-              <span class="fix">&lt;article&gt;</span>&lt;h2&gt;Artigo&lt;/h2&gt;&lt;p&gt;Conteúdo...&lt;/p&gt;<span
-                class="fix">&lt;/article&gt;</span>
-              <span class="fix">&lt;/main&gt;</span>
-            </div>
-            <div class="info-box mt-1"><strong>Princípio:</strong> Use tags semânticas (&lt;header&gt;, &lt;nav&gt;,
-              &lt;main&gt;, &lt;article&gt;) ao invés de &lt;div&gt; genérico. Isso melhora SEO, acessibilidade e
-              legibilidade do código.</div>
-          </div>
+        <div class="fth-code-area" id="fth-editor-3" contenteditable="true" spellcheck="false">&lt;div id="header"&gt;
+          &lt;div&gt;&lt;a href="#"&gt;Home&lt;/a&gt; | &lt;a href="#"&gt;Sobre&lt;/a&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div id="main"&gt;
+          &lt;div&gt;&lt;h2&gt;Artigo&lt;/h2&gt;&lt;p&gt;Conteúdo...&lt;/p&gt;&lt;/div&gt;
+          &lt;/div&gt;</div>
+        <div class="flex-row mb-1">
+          <button class="btn btn-primary" onclick="validateFTH(3)" aria-label="Validar HTML">Validar</button>
+          <button class="btn btn-ghost" onclick="showFix('fix3')" aria-label="Ver correção">Ver Correção</button>
         </div>
+        <div id="fth-fb-3" class="fth-feedback"></div>
+        <div class="fth-answer" id="fix3">
+          <div class="fth-code-area"><span class="fix">&lt;header&gt;</span>
+            <span class="fix">&lt;nav&gt;</span>&lt;a href="#"&gt;Home&lt;/a&gt; | &lt;a
+            href="#"&gt;Sobre&lt;/a&gt;<span class="fix">&lt;/nav&gt;</span>
+            <span class="fix">&lt;/header&gt;</span>
+            <span class="fix">&lt;main&gt;</span>
+            <span class="fix">&lt;article&gt;</span>&lt;h2&gt;Artigo&lt;/h2&gt;&lt;p&gt;Conteúdo...&lt;/p&gt;<span
+              class="fix">&lt;/article&gt;</span>
+            <span class="fix">&lt;/main&gt;</span>
+          </div>
+          <div class="info-box mt-1"><strong>Princípio:</strong> Use tags semânticas (&lt;header&gt;, &lt;nav&gt;,
+            &lt;main&gt;, &lt;article&gt;) ao invés de &lt;div&gt; genérico. Isso melhora SEO, acessibilidade e
+            legibilidade do código.</div>
+        </div>
+      </div>
       </div>
     </section>
 

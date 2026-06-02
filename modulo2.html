@@ -1,0 +1,1887 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Tagliari Web Programming Showcase — demonstração interativa completa de todos os tópicos do curso: HTML5, CSS3, JavaScript, AJAX, Acessibilidade, UX/UI e muito mais.">
+    <meta property="og:title" content="Tagliari Web Programming Showcase">
+    <meta property="og:description" content="Demonstração interativa de todos os tópicos do curso de Programação Web.">
+    <title>Tagliari Web Programming Showcase</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="index-style.css">
+</head>
+
+<body class="modulo2-page">
+
+    <div id="scroll-bar" role="progressbar" aria-label="Progresso de leitura"></div>
+
+    <!-- STICKY NAVBAR -->
+    <nav id="navbar" aria-label="Navegação principal">
+        <a href="index.html" class="navbar-brand" aria-label="Portfólio Web URI">Home</a>
+        <button id="hamburger" aria-label="Abrir menu" aria-expanded="false" onclick="toggleMobileNav()">☰</button>
+        <ul class="navbar-nav" id="navbar-nav" role="list">
+            <li><a href="#sec-client-server">🖥️ Client-Server</a></li>
+            <li><a href="#sec-http-protocol">📡 HTTP Protocol</a></li>
+            <li><a href="#sec-history">⏳ JS History & Engines</a></li>
+            <li><a href="#sec-script-loading">📦 Script Loading</a></li>
+            <li><a href="#sec-jsbasics">⚡ JS Basics</a></li>
+            <li><a href="#sec-dom">⚡ DOM & CSSOM</a></li>
+            <li><a href="#sec-events">🎮 JS Events</a></li>
+            <li><a href="#sec-validation">📋 Form & Regex</a></li>
+            <li><a href="#sec-fetch">🔗 Fetch & AJAX</a></li>
+            <li><a href="#sec-jwt">🔑 Security & JWT</a></li>
+            <li><a href="#sec-databases">🗄️ MVC & Databases</a></li>
+            <li><a href="#sec-fwk">🏗️ Frameworks</a></li>
+            <li><a href="sorteador.html" aria-label="Ir para Sorteador de Alunos">🎲 Sorteador</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <button id="mode-toggle" aria-label="Alternar modo claro/escuro" title="Alternar tema">🌙</button>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="hero" role="banner">
+        <div class="hero-badge">✦ Guia Técnico de Programação Web</div>
+        <h1>
+            <span class="grad">Tagliari Web Programming</span><br>Módulo 2
+        </h1>
+        <p class="hero-sub">
+            Um guia prático interativo cobrindo desde a arquitetura cliente-servidor e protocolos HTTP até manipulação
+            do DOM, Fetch API, segurança e armazenamento web local.
+        </p>
+        <div class="hero-cta">
+            <a href="index.html" class="btn btn-outline btn-secondary" aria-label="Portfólio Web URI">🏠 Voltar</a>
+            <a href="#sec-history" class="btn btn-outline" aria-label="Explorar showcase">Explorar →</a><br />
+            <a href="revisao-second-test.html" class="btn btn-primary" aria-label="Ir para revisão">📋 Revisão para
+                Segunda Prova</a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- SECTION 1: CLIENT-SERVER ARCHITECTURE -->
+        <section class="showcase-section" id="sec-client-server" aria-labelledby="h-client-server">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-client-server">Client-Server Architecture</h2>
+                <p class="section-desc">
+                    A base do desenvolvimento web reside no modelo Cliente-Servidor. Esta arquitetura descentralizada
+                    separa os provedores de recursos (Servidores) dos requisitantes de serviços (Clientes).
+                </p>
+
+                <div class="arch-diagram">
+                    <div class="arch-node" id="node-client">
+                        <div class="node-icon">📱</div>
+                        <div class="node-title">Cliente (Client)</div>
+                        <div class="node-sub">Navegador, Mobile App</div>
+                    </div>
+
+                    <div class="arch-path" id="path-client-server">
+                        <div class="arch-packet" id="packet"></div>
+                    </div>
+
+                    <div class="arch-node" id="node-server">
+                        <div class="node-icon">💻</div>
+                        <div class="node-title">Servidor (Server)</div>
+                        <div class="node-sub">Node.js, PHP, Java</div>
+                    </div>
+
+                    <div class="arch-path" id="path-server-db"></div>
+
+                    <div class="arch-node" id="node-db">
+                        <div class="node-icon">🗄️</div>
+                        <div class="node-title">Banco de Dados</div>
+                        <div class="node-sub">PostgreSQL, MySQL</div>
+                    </div>
+                </div>
+
+                <div class="arch-controls">
+                    <button class="btn btn-primary" onclick="startRequestSimulation()">Simular Request</button>
+                    <button class="btn btn-outline" onclick="resetRequestSimulation()">Resetar</button>
+                </div>
+
+                <div class="sim-console" id="sim-console">
+                    // Console de Simulação: Clique em "Simular Request" para iniciar...
+                </div>
+
+                <div class="card-grid" style="margin-top: 3rem;">
+                    <div class="card">
+                        <span class="card-icon">🖥️</span>
+                        <h3>O que é o Cliente?</h3>
+                        <p>O cliente é a interface final que consome os recursos da rede. Ele envia requisições
+                            estruturadas (Requests) e renderiza a resposta final em interfaces visuais. Exemplos: Google
+                            Chrome, Safari, Apps Mobile.</p>
+                    </div>
+                    <div class="card">
+                        <span class="card-icon">⚙️</span>
+                        <h3>O que é o Servidor?</h3>
+                        <p>O servidor é a máquina receptora que escuta portas de rede, processa a lógica de negócio,
+                            autentica solicitações, acessa os bancos de dados e responde estruturadamente. Exemplos:
+                            Express (Node.js), Spring Boot (Java), Laravel (PHP).</p>
+                    </div>
+                    <div class="card">
+                        <span class="card-icon">🔄</span>
+                        <h3>Ciclo de Request/Response</h3>
+                        <p>A web funciona estritamente baseada em ciclos fechados. Um cliente envia exatamente uma
+                            requisição (Request) e aguarda uma resposta (Response) de volta. O servidor nunca inicia uma
+                            comunicação de forma ativa sem uma requisição inicial.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: HTTP PROTOCOL DEEP DIVE -->
+        <section class="showcase-section" id="sec-http-protocol" aria-labelledby="h-http-protocol">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-http-protocol">HTTP Protocol Deep Dive</h2>
+                <p class="section-desc">
+                    O protocolo HTTP (Hypertext Transfer Protocol) define o formato de mensagens entre o cliente e o
+                    servidor. Cada transação é composta por Headers, Body e Metadados específicos.
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">📡 HTTP Status Code Explorer</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Clique nos códigos de status abaixo para ver seus significados técnicos, exemplos práticos e
+                        como implementá-los no servidor.
+                    </p>
+
+                    <div class="status-grid">
+                        <button class="status-btn s2xx" onclick="showStatus(200, this)">200 OK</button>
+                        <button class="status-btn s2xx" onclick="showStatus(201, this)">201 Created</button>
+                        <button class="status-btn s3xx" onclick="showStatus(301, this)">301 Moved</button>
+                        <button class="status-btn s4xx" onclick="showStatus(400, this)">400 Bad Req</button>
+                        <button class="status-btn s4xx" onclick="showStatus(401, this)">401 Unauth</button>
+                        <button class="status-btn s4xx" onclick="showStatus(403, this)">403 Forbid</button>
+                        <button class="status-btn s4xx" onclick="showStatus(404, this)">404 Not Found</button>
+                        <button class="status-btn s5xx" onclick="showStatus(500, this)">500 Server Err</button>
+                    </div>
+
+                    <div class="status-details" id="status-display">
+                        <!-- Details update dynamically -->
+                    </div>
+                </div>
+
+                <div class="card-grid" style="margin-top: 3rem;">
+                    <div class="card">
+                        <span class="card-icon">📨</span>
+                        <h3>HTTP Request Structure</h3>
+                        <p>Composta pela linha inicial contendo o método (GET, POST), o recurso requisitado
+                            (/index.html) e a versão do protocolo (HTTP/1.1). Segue-se os Headers (metadados como
+                            Cookies e User-Agent) e opcionalmente o Body.</p>
+                    </div>
+                    <div class="card">
+                        <span class="card-icon">📩</span>
+                        <h3>HTTP Response Structure</h3>
+                        <p>Contém o status code (ex: 200 OK), headers da resposta (Content-Type, Server) e o payload de
+                            retorno (HTML, CSS, JSON ou imagens), que o cliente usará para montar e exibir o conteúdo.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: HTTP METHODS -->
+        <section class="showcase-section" id="sec-http-methods" aria-labelledby="h-http-methods">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-http-methods">HTTP Methods & REST API Simulator</h2>
+                <p class="section-desc">
+                    Métodos HTTP (verbos) instruem o servidor sobre qual ação executar em um recurso específico. Numa
+                    API REST, cada verbo mapeia para operações de banco de dados (CRUD).
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">🛠️ API REST & Database Simulator</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Selecione uma chamada de endpoint abaixo, preencha o payload se necessário, envie a requisição e
+                        observe a mudança em tempo real do banco de dados simulado no rodapé do painel.
+                    </p>
+
+                    <div class="rest-grid">
+                        <div class="method-menu">
+                            <button class="method-btn active" onclick="selectMethod('GET', this)">
+                                <span>Listar Produtos</span>
+                                <span class="m-badge m-get">GET</span>
+                            </button>
+                            <button class="method-btn" onclick="selectMethod('POST', this)">
+                                <span>Criar Produto</span>
+                                <span class="m-badge m-post">POST</span>
+                            </button>
+                            <button class="method-btn" onclick="selectMethod('PUT', this)">
+                                <span>Atualizar Produto</span>
+                                <span class="m-badge m-put">PUT</span>
+                            </button>
+                            <button class="method-btn" onclick="selectMethod('PATCH', this)">
+                                <span>Mudar Preço</span>
+                                <span class="m-badge m-patch">PATCH</span>
+                            </button>
+                            <button class="method-btn" onclick="selectMethod('DELETE', this)">
+                                <span>Deletar Produto</span>
+                                <span class="m-badge m-delete">DELETE</span>
+                            </button>
+                        </div>
+
+                        <div class="rest-workspace">
+                            <div class="url-bar">
+                                <span class="url-method m-get" id="url-method-label">GET</span>
+                                <input class="url-input" type="text" id="url-endpoint-value"
+                                    value="https://api.loja.com/products" disabled>
+                            </div>
+
+                            <div class="payload-editor" id="payload-editor-container" style="display: none;">
+                                <label style="font-weight: 700; font-size: 0.85rem;">Request JSON Body:</label>
+                                <textarea class="payload-textarea" id="payload-textarea-input">{}</textarea>
+                            </div>
+
+                            <button class="btn btn-primary" onclick="sendRestRequest()">Enviar Request</button>
+
+                            <pre class="code-block" style="margin: 0; min-height: 100px;"><span class="cm">// Server Response</span>
+<span class="kw">Status:</span> <span class="vl" id="resp-status">--</span>
+<span class="kw">Headers:</span> <span class="st">{"Content-Type": "application/json"}</span>
+<span class="kw">Body:</span> <span id="resp-body" style="font-family: inherit;">[]</span></pre>
+
+                            <div class="db-viewer">
+                                <div class="db-title">Base de Dados Simulada (Tabela Products)</div>
+                                <div class="db-list" id="db-products-list">
+                                    <!-- Rendered dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION — JAVASCRIPT HISTORY & ENGINES -->
+        <section class="showcase-section" id="sec-history" aria-labelledby="h-history">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-history">JavaScript: História, Evolução e Motores</h2>
+                <p class="section-desc">
+                    Criado sob pressão em apenas 10 dias por Brendan Eich em 1995 na Netscape, o JavaScript superou
+                    críticas iniciais e a fragmentação da Guerra dos Navegadores para se tornar a linguagem soberana da
+                    Web moderna, rodando hoje de navegadores a foguetes espaciais.
+                </p>
+
+                <div class="history-stepper">
+                    <div class="stepper-header">
+                        <button class="step-tab active" onclick="showHistoryStep(0, this)">1995 — A Origem</button>
+                        <button class="step-tab" onclick="showHistoryStep(1, this)">1996 — Guerra e Padrão</button>
+                        <button class="step-tab" onclick="showHistoryStep(2, this)">2005 — Popularização (AJAX)</button>
+                        <button class="step-tab" onclick="showHistoryStep(3, this)">2009-2013 — Ecossistema</button>
+                        <button class="step-tab" onclick="showHistoryStep(4, this)">2015+ — Modernidade (ES6)</button>
+                    </div>
+                    <div class="stepper-content" id="history-content-display">
+                        <!-- Content updated dynamically -->
+                    </div>
+                </div>
+
+                <div class="card-grid" style="margin-top: 3rem;">
+                    <div class="card">
+                        <span class="card-icon">🔄</span>
+                        <h3>"Don't Break the Web"</h3>
+                        <p>A filosofia central do JavaScript é a compatibilidade retrátil. Isso significa que qualquer script escrito em 1995 ainda deve rodar perfeitamente nos navegadores modernos hoje em dia, evitando que sites antigos quebrem.</p>
+                    </div>
+                    <div class="card">
+                        <span class="card-icon">👥</span>
+                        <h3>Processo de Proposta TC39</h3>
+                        <p>A evolução da linguagem é gerida pelo comitê técnico TC39 através de 5 estágios estritos: Stage 0 (Strawman), Stage 1 (Proposal), Stage 2 (Draft), Stage 3 (Candidate) e Stage 4 (Finished/Standardized).</p>
+                    </div>
+                    <div class="card">
+                        <span class="card-icon">🚀</span>
+                        <h3>JS no Espaço</h3>
+                        <p>O JavaScript não está limitado à web. As telas sensíveis ao toque (touchscreens) das espaçonaves Dragon da SpaceX usam Chromium com JavaScript para renderizar sua interface de controle interativo!</p>
+                    </div>
+                </div>
+
+                <div class="demo-panel mt-3">
+                    <div class="panel-title">⚙️ Motores de Execução (JS Engines)</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        O JavaScript é interpretado/compilado Just-in-Time (JIT) por motores embutidos nos ambientes de execução:
+                    </p>
+                    <div class="engines-grid">
+                        <div class="engine-box">
+                            <strong style="color: var(--blue);">Google V8</strong>
+                            <p style="font-size: 0.85rem; color: var(--mode-txt2); margin-top: 0.5rem;">Motor de altíssima performance presente no Google Chrome, Microsoft Edge e nativamente no backend com o <strong>Node.js</strong>.</p>
+                        </div>
+                        <div class="engine-box">
+                            <strong style="color: var(--pink);">SpiderMonkey</strong>
+                            <p style="font-size: 0.85rem; color: var(--mode-txt2); margin-top: 0.5rem;">O primeiro motor JS da história, desenvolvido por Brendan Eich, hoje mantido e otimizado pela Mozilla para o <strong>Firefox</strong>.</p>
+                        </div>
+                        <div class="engine-box">
+                            <strong style="color: var(--cyan);">JavaScriptCore</strong>
+                            <p style="font-size: 0.85rem; color: var(--mode-txt2); margin-top: 0.5rem;">Motor altamente eficiente focado em baixo consumo energético, utilizado pela Apple no navegador <strong>Safari</strong> (WebKit).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION — SCRIPT LOADING STRATEGIES -->
+        <section class="showcase-section" id="sec-script-loading" aria-labelledby="h-script-loading">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-script-loading">Estratégias de Carregamento de Scripts</h2>
+                <p class="section-desc">
+                    Como o navegador interpreta a tag <code>&lt;script&gt;</code> afeta diretamente a performance e a renderização do HTML da página.
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">📦 Simulador de Carregamento de Scripts (Parser vs Script)</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Escolha um método de carregamento e veja como o parser do HTML e o download/execução do script se comportam na linha do tempo.
+                    </p>
+
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="btn-load-normal" onclick="simulateScriptLoad('normal')">Padrão (Blocking)</button>
+                        <button class="btn btn-outline" id="btn-load-async" onclick="simulateScriptLoad('async')">Async</button>
+                        <button class="btn btn-outline" id="btn-load-defer" onclick="simulateScriptLoad('defer')">Defer</button>
+                    </div>
+
+                    <div class="loading-simulation-box">
+                        <div class="sim-timeline-row">
+                            <div class="timeline-label">Parsing do HTML:</div>
+                            <div class="timeline-track">
+                                <div class="timeline-bar html-bar" id="html-parse-bar"></div>
+                            </div>
+                        </div>
+                        <div class="sim-timeline-row">
+                            <div class="timeline-label">Download do JS:</div>
+                            <div class="timeline-track">
+                                <div class="timeline-bar download-bar" id="js-download-bar"></div>
+                            </div>
+                        </div>
+                        <div class="sim-timeline-row">
+                            <div class="timeline-label">Execução do JS:</div>
+                            <div class="timeline-track">
+                                <div class="timeline-bar execution-bar" id="js-execution-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sim-console" id="script-load-console" style="min-height: 80px; margin-top: 1.5rem;">
+                        // Clique em um dos botões para iniciar a simulação...
+                    </div>
+
+                    <div class="table-wrap mt-3">
+                        <table class="storage-table">
+                            <thead>
+                                <tr>
+                                    <th>Tag HTML</th>
+                                    <th>Download</th>
+                                    <th>Execução</th>
+                                    <th>Bloqueia Parser?</th>
+                                    <th>Garante Ordem?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>&lt;script&gt;</code></td>
+                                    <td>Bloqueia Parser</td>
+                                    <td>Imediata</td>
+                                    <td><strong style="color: var(--red);">Sim</strong></td>
+                                    <td>Sim</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;script async&gt;</code></td>
+                                    <td>Paralelo</td>
+                                    <td>Imediata (assim que baixa)</td>
+                                    <td><strong style="color: var(--red);">Sim (durante execução)</strong></td>
+                                    <td><strong style="color: var(--red);">Não</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;script defer&gt;</code></td>
+                                    <td>Paralelo</td>
+                                    <td>Após fim do Parser HTML</td>
+                                    <td><strong style="color: var(--green);">Não</strong></td>
+                                    <td>Sim</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+         SECTION — JAVASCRIPT FUNDAMENTALS
+    ═══════════════════════════════════════════ -->
+        <section class="showcase-section" id="sec-jsbasics" aria-labelledby="h-jsbasics">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-jsbasics">JavaScript Fundamentals</h2>
+                <p class="section-desc">Demonstrações ao vivo de variáveis, arrays, objetos, funções, loops, eventos e
+                    manipulação do DOM.</p>
+
+                <div class="split">
+                    <!-- Variables & Template Literals -->
+                    <div class="demo-panel">
+                        <h3>Variáveis &amp; Template Literals</h3>
+                        <div class="form-group">
+                            <label for="js-name-in">Seu nome</label>
+                            <input type="text" id="js-name-in" placeholder="Digite seu nome..."
+                                oninput="updateGreeting()" aria-label="Digite seu nome para o exemplo">
+                        </div>
+                        <div class="form-group">
+                            <label for="js-year-in">Ano de nascimento</label>
+                            <input type="number" id="js-year-in" placeholder="1999" min="1900" max="2025"
+                                oninput="updateGreeting()" aria-label="Ano de nascimento">
+                        </div>
+                        <div id="js-greeting-out"
+                            style="background:rgba(0,0,0,0.3);padding:0.75rem;border-radius:var(--rad-sm);font-size:0.85rem;color:var(--green);font-family:'Fira Code',monospace;min-height:3rem;"
+                            aria-live="polite">
+                            // Saída aparecerá aqui
+                        </div>
+                    </div>
+
+                    <!-- Array methods -->
+                    <div class="demo-panel">
+                        <h3>Arrays — map, filter, reduce</h3>
+                        <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-bottom:0.75rem;">
+                            <button class="btn btn-primary" onclick="runArrayDemo('map')" aria-label="Demonstrar map"
+                                style="font-size:0.78rem;padding:0.4rem 0.9rem">.map()</button>
+                            <button class="btn btn-primary" onclick="runArrayDemo('filter')"
+                                aria-label="Demonstrar filter"
+                                style="font-size:0.78rem;padding:0.4rem 0.9rem">.filter()</button>
+                            <button class="btn btn-primary" onclick="runArrayDemo('reduce')"
+                                aria-label="Demonstrar reduce"
+                                style="font-size:0.78rem;padding:0.4rem 0.9rem">.reduce()</button>
+                            <button class="btn btn-primary" onclick="runArrayDemo('foreach')"
+                                aria-label="Demonstrar forEach"
+                                style="font-size:0.78rem;padding:0.4rem 0.9rem">.forEach()</button>
+                        </div>
+                        <pre class="code-block" id="array-code-out"
+                            style="max-height:160px;overflow-y:auto;"><span class="cm">// Clique nos botões acima</span></pre>
+                        <div id="array-result-out"
+                            style="margin-top:0.75rem;font-size:0.82rem;color:var(--green);font-family:'Fira Code',monospace;">
+                        </div>
+                    </div>
+
+                    <!-- DOM manipulation -->
+                    <div class="demo-panel">
+                        <h3>Manipulação do DOM</h3>
+                        <div class="flex mb-2">
+                            <button class="btn btn-primary" onclick="domAddItem()"
+                                style="font-size:0.78rem;padding:0.5rem 0.9rem" aria-label="Adicionar item ao DOM">+
+                                Adicionar item</button>
+                            <button class="btn btn-outline" onclick="domClearItems()"
+                                style="font-size:0.78rem;padding:0.5rem 0.9rem" aria-label="Limpar lista do DOM">✕
+                                Limpar</button>
+                        </div>
+                        <ul id="dom-list"
+                            style="list-style:none;display:flex;flex-direction:column;gap:0.4rem;max-height:180px;overflow-y:auto;"
+                            aria-label="Lista de itens adicionados dinamicamente" aria-live="polite">
+                            <!-- JS inserts here -->
+                        </ul>
+                    </div>
+
+                    <!-- Events & Loops -->
+                    <div class="demo-panel">
+                        <h3>Eventos &amp; Loops</h3>
+                        <p style="font-size:0.82rem;color:var(--mode-txt2);margin-bottom:0.75rem;">Clique no botão para
+                            gerar N
+                            elementos com um loop <code>for</code>:</p>
+                        <div class="flex mb-2">
+                            <input type="number" id="loop-n" value="5" min="1" max="20"
+                                style="width:80px;padding:0.45rem;background:var(--mode-bg2);border:1px solid var(--mode-border);border-radius:var(--rad-sm);color:var(--mode-txt);font-family:inherit;outline:none;"
+                                aria-label="Quantidade de itens">
+                            <button class="btn btn-primary" onclick="runLoop()"
+                                style="font-size:0.78rem;padding:0.5rem 0.9rem" aria-label="Executar loop">▶
+                                Executar</button>
+                        </div>
+                        <div id="loop-out" style="display:flex;gap:0.4rem;flex-wrap:wrap;" aria-live="polite"></div>
+                    </div>
+                </div>
+
+                <!-- SUB-SECTION: VAR, LET, CONST & HOISTING -->
+                <div class="demo-panel mt-3">
+                    <div class="panel-title">⚡ Escopo de Variáveis, Hoisting &amp; TDZ</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        O JavaScript evoluiu o gerenciamento de escopo no ES6, introduzindo block scope e mitigando erros gerados pelo comportamento de Hoisting (içamento).
+                    </p>
+
+                    <div class="split">
+                        <div style="flex: 1.2;">
+                            <div class="table-wrap">
+                                <table class="storage-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Característica</th>
+                                            <th>var</th>
+                                            <th>let</th>
+                                            <th>const</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Escopo</strong></td>
+                                            <td>Função / Global</td>
+                                            <td>Bloco <code>{ }</code></td>
+                                            <td>Bloco <code>{ }</code></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Hoisting (Içamento)</strong></td>
+                                            <td>Sim (Inicializa como <code>undefined</code>)</td>
+                                            <td>Sim (Inacessível na Zona Morta Temporal)</td>
+                                            <td>Sim (Inacessível na Zona Morta Temporal)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Redeclaração</strong></td>
+                                            <td><span style="color: var(--green);">Permitida</span></td>
+                                            <td><span style="color: var(--red);">Bloqueada</span></td>
+                                            <td><span style="color: var(--red);">Bloqueada</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Reatribuição</strong></td>
+                                            <td><span style="color: var(--green);">Permitida</span></td>
+                                            <td><span style="color: var(--green);">Permitida</span></td>
+                                            <td><span style="color: var(--red);">Bloqueada (Mutável)</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="var-playground-panel" style="flex: 1.1;">
+                            <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.5rem; color: var(--mode-txt);">Selecione o Exemplo para Simular:</strong>
+                            <select id="var-scenario-select" class="form-input" onchange="runVarScenarioSim()">
+                                <option value="var-hoisting">var Hoisting (Içamento)</option>
+                                <option value="let-hoisting">let Hoisting (Temporal Dead Zone)</option>
+                                <option value="let-block">Escopo de Bloco (let vs var)</option>
+                                <option value="const-mutation">Mutabilidade de const (Objetos/Arrays)</option>
+                            </select>
+
+                            <div class="code-block" id="var-sim-code" style="margin-top: 1rem; min-height: 110px;">
+                                <!-- Code snippet loaded dynamically -->
+                            </div>
+
+                            <button class="btn btn-primary" onclick="executeVarScenarioSim()">Executar Cenário</button>
+
+                            <div class="sim-console" id="var-sim-console" style="min-height: 90px; margin-top: 1rem;">
+                                // Clique em "Executar Cenário" para rodar o código e ver a explicação...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-SECTION: JAVASCRIPT DATA TYPES -->
+                <div class="demo-panel mt-3">
+                    <div class="panel-title">🔹 JavaScript Data Types &amp; Coerção Implícita</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        JavaScript possui 8 tipos de dados nativos. Sendo fracamente tipado, realiza conversões implícitas de tipos (type coercion) automaticamente durante certas operações.
+                    </p>
+
+                    <div class="split">
+                        <div>
+                            <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.5rem; color: var(--mode-txt);">Os 8 Tipos Principais:</strong>
+                            <div class="types-list">
+                                <div class="type-item"><code>Number</code>: Inteiros e flutuantes (ex: <code>30</code>, <code>5.5</code>).</div>
+                                <div class="type-item"><code>BigInt</code>: Inteiros gigantes sem limites (ex: <code>9007199254740991n</code>).</div>
+                                <div class="type-item"><code>String</code>: Texto delimitado por aspas ou template literals.</div>
+                                <div class="type-item"><code>Boolean</code>: Verdadeiro ou falso (<code>true</code> / <code>false</code>).</div>
+                                <div class="type-item"><code>Undefined</code>: Variável declarada mas sem valor atribuído.</div>
+                                <div class="type-item"><code>Null</code>: Ausência intencional de valor. <strong style="color:var(--pink)">Bug histórico:</strong> <code>typeof null</code> retorna <code>"object"</code>.</div>
+                                <div class="type-item"><code>Symbol</code>: Identificador imutável único de propriedade.</div>
+                                <div class="type-item"><code>Object</code>: Estruturas complexas (arrays, objetos literais, funções).</div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.5rem; color: var(--mode-txt);">Testador de Tipagem e Coerção Dinâmica:</strong>
+                            <p style="font-size: 0.8rem; color: var(--mode-txt2); margin-bottom: 0.75rem;">Digite uma expressão ou escolha um atalho de coerção:</p>
+                            
+                            <div style="display: flex; gap: 0.4rem; margin-bottom: 0.75rem; flex-wrap: wrap;">
+                                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="setTypeCheckerValue('5 + &quot;5&quot;')">5 + "5"</button>
+                                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="setTypeCheckerValue('&quot;10&quot; - 2')">"10" - 2</button>
+                                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="setTypeCheckerValue('3 + true')">3 + true</button>
+                                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="setTypeCheckerValue('4 + undefined')">4 + undefined</button>
+                                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="setTypeCheckerValue('1 == &quot;1&quot;')">1 == "1"</button>
+                                <button class="btn btn-outline" style="padding: 0.3rem 0.6rem; font-size: 0.75rem;" onclick="setTypeCheckerValue('1 === &quot;1&quot;')">1 === "1"</button>
+                            </div>
+
+                            <div class="form-group">
+                                <input type="text" class="form-input" id="type-checker-input" placeholder="Digite uma expressão (ex: 5 + '5')" oninput="evaluateTypeCheckerExpression()">
+                            </div>
+
+                            <pre class="code-block" style="margin: 0.5rem 0 0 0; min-height: 80px;"><span class="kw">Expressão:</span> <span class="st" id="type-expr-out">--</span>
+<span class="kw">Valor Resolvido:</span> <span class="vl" id="type-val-out">--</span>
+<span class="kw">Tipo de Dado:</span> <span class="fn" id="type-type-out">--</span></pre>
+                            <div id="type-explanation-out" style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--green); font-family: monospace;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-SECTION: CLASSES & INHERITANCE -->
+                <div class="demo-panel mt-3">
+                    <div class="panel-title">🏗️ POO no ES6: Classes &amp; Herança</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Introduzido no ES6, o açúcar sintático de <code>class</code> simplifica a criação de objetos e relacionamentos de herança por protótipos em JavaScript.
+                    </p>
+
+                    <div class="split">
+                        <pre class="code-block" style="margin: 0;"><span class="kw">class</span> <span class="fn">Pessoa</span> {
+  <span class="fn">constructor</span>(nome, idade) {
+    <span class="kw">this</span>.nome = nome;
+    <span class="kw">this</span>.idade = idade;
+  }
+  <span class="fn">apresentar</span>() {
+    <span class="kw">return</span> <span class="st">`Olá, meu nome é ${this.nome}`</span>;
+  }
+}
+
+<span class="kw">class</span> <span class="fn">Aluno</span> <span class="kw">extends</span> <span class="fn">Pessoa</span> {
+  <span class="fn">constructor</span>(nome, idade, curso) {
+    <span class="kw">super</span>(nome, idade); // Chama o construtor pai
+    <span class="kw">this</span>.curso = curso;
+  }
+  <span class="fn">estudar</span>() {
+    <span class="kw">return</span> <span class="st">`${this.nome} está estudando ${this.curso}`</span>;
+  }
+}</pre>
+
+                        <div class="class-instantiator-panel">
+                            <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.5rem; color: var(--mode-txt);">Instanciar Objeto:</strong>
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label style="font-size: 0.75rem; font-weight: 700;">Nome:</label>
+                                <input type="text" class="form-input" id="class-nome" value="Ana" style="padding: 0.4rem;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label style="font-size: 0.75rem; font-weight: 700;">Idade:</label>
+                                <input type="number" class="form-input" id="class-idade" value="22" style="padding: 0.4rem;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label style="font-size: 0.75rem; font-weight: 700;">Curso:</label>
+                                <input type="text" class="form-input" id="class-curso" value="Informática" style="padding: 0.4rem;">
+                            </div>
+
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-outline" onclick="createClassInstance('Pessoa')">new Pessoa()</button>
+                                <button class="btn btn-primary" onclick="createClassInstance('Aluno')">new Aluno()</button>
+                            </div>
+
+                            <div class="sim-console" id="class-output-console" style="min-height: 80px; margin-top: 1rem;">
+                                // Clique nos botões acima para ver o objeto criado e chamar seus métodos...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SUB-SECTION: ERROR HANDLING -->
+                <div class="demo-panel mt-3">
+                    <div class="panel-title">⚠️ Tratamento de Erros com Try, Catch, Throw &amp; Finally</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Utilizamos blocos <code>try...catch</code> para capturar exceções antes que elas quebrem o fluxo principal da aplicação. A palavra-chave <code>throw</code> lança erros personalizados e o bloco <code>finally</code> executa incondicionalmente no encerramento.
+                    </p>
+
+                    <div class="split">
+                        <pre class="code-block" style="margin: 0;" id="error-flow-code"><span class="kw">try</span> {
+  <span class="cm">// Bloco monitorado</span>
+  <span class="kw">let</span> x = <span id="error-sim-trigger-line">y + 1</span>;
+} <span class="kw">catch</span> (err) {
+  <span class="cm">// Tratador de erro</span>
+  console.<span class="fn">error</span>(err.message);
+} <span class="kw">finally</span> {
+  <span class="cm">// Roda sempre</span>
+  console.<span class="fn">log</span>(<span class="st">"Sempre executa!"</span>);
+}</pre>
+
+                        <div>
+                            <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.5rem; color: var(--mode-txt);">Escolha o erro a ser gerado:</strong>
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1rem;">
+                                <button class="btn btn-outline" onclick="runErrorDemoScenario('reference')">ReferenceError (y não existe)</button>
+                                <button class="btn btn-outline" onclick="runErrorDemoScenario('custom')">Throw customizado (Lançar erro)</button>
+                                <button class="btn btn-outline" onclick="runErrorDemoScenario('none')">Sem erro (Sucesso)</button>
+                            </div>
+
+                            <div class="sim-console" id="error-console-output" style="min-height: 120px;">
+                                // Selecione um cenário para visualizar o fluxo de execução...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: JAVASCRIPT DOM MANIPULATION -->
+        <section class="showcase-section" id="sec-dom" aria-labelledby="h-dom">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-dom">JavaScript DOM Manipulation</h2>
+                <p class="section-desc">
+                    O DOM (Document Object Model) é a representação em memória do HTML gerada pelo navegador. O
+                    JavaScript o manipula para alterar dinamicamente a estrutura, conteúdo e estilo dos elementos.
+                </p>
+
+                <div class="dom-playground">
+                    <div class="dom-target-wrap">
+                        <div id="dom-target">
+                            <h4 id="dom-target-title" style="margin-bottom: 0.5rem; font-weight: 800;">Card Alvo</h4>
+                            <p id="dom-target-desc" style="color: var(--mode-txt2); font-size: 0.85rem;">Você pode
+                                modificar o conteúdo e o estilo deste card usando os controles ao lado.</p>
+                        </div>
+                    </div>
+
+                    <div class="dom-controls">
+                        <div class="form-group">
+                            <label
+                                style="font-weight: 700; font-size: 0.85rem; margin-bottom: 0.25rem; display: block;">Modificar
+                                textContent do Título:</label>
+                            <input type="text" class="form-input" id="dom-text-input" value="Card Alvo"
+                                oninput="updateDomTitle(this.value)">
+                        </div>
+
+                        <div class="form-group">
+                            <label
+                                style="font-weight: 700; font-size: 0.85rem; margin-bottom: 0.25rem; display: block;">Modificar
+                                innerHTML do Parágrafo:</label>
+                            <input type="text" class="form-input" id="dom-html-input"
+                                value="Texto com &lt;strong&gt;negrito&lt;/strong&gt; dinâmico!"
+                                oninput="updateDomParagraph(this.value)">
+                        </div>
+
+                        <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                            <button class="btn btn-outline" style="font-size: 0.8rem; padding: 0.5rem 1rem;"
+                                onclick="toggleDomClass('premium')">classList.toggle('premium')</button>
+                            <button class="btn btn-outline" style="font-size: 0.8rem; padding: 0.5rem 1rem;"
+                                onclick="toggleDomClass('highlight')">classList.toggle('highlight')</button>
+                        </div>
+
+                        <pre class="code-block" style="margin: 0;"><span class="cm">// Operações DOM executadas em tempo real</span>
+<span id="dom-live-code">document.getElementById('dom-target').textContent = ...;</span></pre>
+                    </div>
+                </div>
+
+                <!-- Sub-section: CSSOM -->
+                <div class="demo-panel mt-3">
+                    <div class="panel-title">🎨 CSSOM (CSS Object Model) Explorer</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        O CSSOM é a árvore que representa todos os estilos aplicados ao documento. O JavaScript pode ler estilos computados finais do navegador ou aplicar novos estilos diretamente nos elementos como CSS inline.
+                    </p>
+
+                    <div class="cssom-split">
+                        <div class="cssom-control-panel">
+                            <div class="form-group">
+                                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.35rem;">Escolha o Elemento Alvo:</label>
+                                <select id="cssom-element-select" class="form-input" onchange="updateCssomDisplay()">
+                                    <option value="dom-target">Card Alvo (DOM Target)</option>
+                                    <option value="hero">Hero Header</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.35rem;">Selecione o valor de color inline:</label>
+                                <div style="display: flex; gap: 0.4rem;">
+                                    <button class="btn btn-outline" style="padding: 0.4rem;" onclick="setCssomStyle('color', 'var(--blue)')">Blue</button>
+                                    <button class="btn btn-outline" style="padding: 0.4rem;" onclick="setCssomStyle('color', 'var(--pink)')">Pink</button>
+                                    <button class="btn btn-outline" style="padding: 0.4rem;" onclick="setCssomStyle('color', '')">Reset Color</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.35rem;">Selecione o valor de border-radius inline:</label>
+                                <div style="display: flex; gap: 0.4rem;">
+                                    <button class="btn btn-outline" style="padding: 0.4rem;" onclick="setCssomStyle('borderRadius', '0px')">0px</button>
+                                    <button class="btn btn-outline" style="padding: 0.4rem;" onclick="setCssomStyle('borderRadius', '24px')">24px</button>
+                                    <button class="btn btn-outline" style="padding: 0.4rem;" onclick="setCssomStyle('borderRadius', '')">Reset Radius</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cssom-code-panel">
+                            <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.5rem; color: var(--mode-txt);">Diferença Sintática JS:</strong>
+                            <pre class="code-block" style="margin: 0 0 1rem 0;"><span class="cm">// 1. Acessando estilo inline (escrita)</span>
+<span class="kw">element</span>.<span class="kw">style</span>.<span class="vl">color</span> = <span class="st" id="cssom-inline-val">"..."</span>;
+<span class="kw">element</span>.<span class="kw">style</span>.<span class="vl">borderRadius</span> = <span class="st" id="cssom-inline-radius">"..."</span>;</pre>
+                            <pre class="code-block" style="margin: 0;"><span class="cm">// 2. Consultando estilos computados finais (somente leitura)</span>
+<span class="kw">const</span> styles = <span class="fn">window.getComputedStyle</span>(<span class="kw">element</span>);
+<span class="kw">console.log</span>(styles.<span class="vl">color</span>); <span class="cm">// Retorna:</span> <span class="st" id="cssom-computed-val">"rgb(...)"</span>
+<span class="kw">console.log</span>(styles.<span class="vl">borderRadius</span>); <span class="cm">// Retorna:</span> <span class="st" id="cssom-computed-radius">"..."</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: JAVASCRIPT EVENTS -->
+        <section class="showcase-section" id="sec-events" aria-labelledby="h-events">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-events">JavaScript Events</h2>
+                <p class="section-desc">
+                    Eventos são interações detectadas pelo navegador causadas pelo usuário ou ciclo do documento. Ao
+                    anexar Event Listeners, ativamos scripts dinamicamente.
+                </p>
+
+                <div class="events-grid">
+                    <div class="event-triggers">
+                        <div class="event-trigger-box" onclick="logEvent('click', 'Button clicked!')">
+                            <span style="font-size: 1.5rem;">🖱️</span>
+                            <strong>Click</strong>
+                            <span style="font-size: 0.75rem; color: var(--mode-txt2);">Clique nesta caixa</span>
+                        </div>
+                        <div class="event-trigger-box"
+                            onmouseover="logEvent('mouseover', 'Mouse hovered over target!')">
+                            <span style="font-size: 1.5rem;">🎯</span>
+                            <strong>Mouseover</strong>
+                            <span style="font-size: 0.75rem; color: var(--mode-txt2);">Passe o mouse por cima</span>
+                        </div>
+                        <div class="event-trigger-box">
+                            <span style="font-size: 1.5rem;">⌨️</span>
+                            <strong>Input / Keyup</strong>
+                            <input type="text" class="form-input" style="font-size: 0.75rem; padding: 0.3rem;"
+                                placeholder="Digite algo..." oninput="logEvent('input', 'Input value: ' + this.value)"
+                                onkeyup="logEvent('keyup', 'Keyup code: ' + event.code)">
+                        </div>
+                        <div class="event-trigger-box">
+                            <span style="font-size: 1.5rem;">🔄</span>
+                            <strong>Change</strong>
+                            <select class="form-input" style="font-size: 0.75rem; padding: 0.3rem;"
+                                onchange="logEvent('change', 'Changed selector: ' + this.value)">
+                                <option value="Opcao A">Opção A</option>
+                                <option value="Opcao B">Opção B</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="dom-controls">
+                        <div style="font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem;">📋 Console de Logs de
+                            Eventos</div>
+                        <div class="sim-console" id="events-console" style="min-height: 230px;">
+                            // Logs de eventos aparecerão aqui...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: FORM VALIDATION -->
+        <section class="showcase-section" id="sec-validation" aria-labelledby="h-validation">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-validation">Form Validation</h2>
+                <p class="section-desc">
+                    A validação de formulários assegura a integridade dos dados enviados. Deve ser aplicada em camadas:
+                    HTML5 nativa no front-end para UX imediata, JavaScript para regras de negócio específicas, e
+                    obrigatoriamente no back-end.
+                </p>
+
+                <div class="validation-split">
+                    <div class="val-form-panel">
+                        <h3 style="margin-bottom: 1.5rem; font-weight: 800;">Validador de Cadastro</h3>
+                        <form id="val-demo-form" onsubmit="handleDemoSubmit(event)">
+                            <div class="form-group" style="margin-bottom: 1.25rem;">
+                                <label
+                                    style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Nome
+                                    Completo (Mín. 4 caracteres):</label>
+                                <input type="text" class="form-input" id="val-name" required minlength="4"
+                                    oninput="validateFieldModulo2('name')">
+                                <span class="field-msg" id="msg-name"></span>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 1.25rem;">
+                                <label
+                                    style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Email
+                                    Válido:</label>
+                                <input type="email" class="form-input" id="val-email" required
+                                    oninput="validateFieldModulo2('email')">
+                                <span class="field-msg" id="msg-email"></span>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 1.25rem;">
+                                <label
+                                    style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Senha
+                                    (Mín. 6 caracteres):</label>
+                                <input type="password" class="form-input" id="val-pass" required minlength="6"
+                                    oninput="validateFieldModulo2('pass')">
+                                <span class="field-msg" id="msg-pass"></span>
+                            </div>
+                            <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar Cadastro</button>
+                        </form>
+                    </div>
+
+                    <div class="val-comparison">
+                        <div class="card">
+                            <span class="val-badge bad">❌ Validação Incorreta / Fraca</span>
+                            <p>Esperar o submit final do formulário para verificar se os dados estão vazios por meio de
+                                alertas nativos do navegador <code>alert()</code>. Isso cria fricção, apaga dados que o
+                                usuário já preencheu e tem péssima acessibilidade.</p>
+                        </div>
+                        <div class="card">
+                            <span class="val-badge good">✓ Validação Correta / Avançada</span>
+                            <p>Dar feedback inline em tempo real à medida que o usuário digita nos campos (validação no
+                                evento <code>input</code>), estilizar os campos como válidos/inválidos dinamicamente e
+                                desabilitar o botão de envio até que os critérios de segurança sejam preenchidos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION — REGULAR EXPRESSIONS (REGEX) -->
+        <section class="showcase-section" id="sec-regex" aria-labelledby="h-regex">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-regex">Expressões Regulares (Regex)</h2>
+                <p class="section-desc">
+                    Expressões regulares são padrões utilizados para realizar buscas, extrações e validações avançadas em strings (como emails, CEPs e senhas).
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">🧩 Regex Sandbox &amp; Validations</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Escolha um padrão pré-definido ou digite o seu próprio, digite um texto de entrada e veja a validação e substituição ocorrerem ao vivo.
+                    </p>
+
+                    <div class="split">
+                        <div class="regex-setup">
+                            <div class="form-group">
+                                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.35rem;">Escolha um Atalho:</label>
+                                <select id="regex-shortcut" class="form-input" onchange="applyRegexShortcut()">
+                                    <option value="has-number">Verificar se contém número (/\d/)</option>
+                                    <option value="only-letters">Extrair letras maiúsculas (/[A-Z]/g)</option>
+                                    <option value="email-validation">Validar email simples (/^[^\s@]+@[^\s@]+\.[^\s@]+$/)</option>
+                                    <option value="replace-digits">Substituir números por 'XXX' (/\d+/g)</option>
+                                    <option value="cep-format">CEP (00000-000) (/^\d{5}-\d{3}$/)</option>
+                                    <option value="phone-format">Telefone (00 00000-0000) (/^\(\d{2}\)\s\d{5}-\d{4}$/)</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.35rem;">Pattern Regex:</label>
+                                <input type="text" class="form-input" id="regex-pattern" value="/\d/" oninput="runLiveRegex()">
+                            </div>
+
+                            <div class="form-group" id="regex-replacement-group" style="display: none;">
+                                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.35rem;">Texto de Substituição:</label>
+                                <input type="text" class="form-input" id="regex-replacement" value="XXX" oninput="runLiveRegex()">
+                            </div>
+                        </div>
+
+                        <div class="regex-test-panel">
+                            <div class="form-group">
+                                <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.35rem;">Texto de Entrada (Input Text):</label>
+                                <textarea class="payload-textarea" id="regex-input-text" style="height: 100px;" oninput="runLiveRegex()">Produto 123</textarea>
+                            </div>
+
+                            <pre class="code-block" style="margin: 0; min-height: 110px;"><span class="kw">.test() Result:</span> <span class="vl" id="regex-test-out">--</span>
+<span class="kw">.match() Result:</span> <span class="st" id="regex-match-out">--</span>
+<span class="kw">.replace() Result:</span> <span class="cm" id="regex-replace-out">--</span></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: JSON -->
+        <section class="showcase-section" id="sec-json" aria-labelledby="h-json">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-json">JSON (JavaScript Object Notation)</h2>
+                <p class="section-desc">
+                    JSON é o formato leve e padrão de transferência de dados na web moderna. Possui regras sintáticas
+                    estritas e deve ser convertido entre strings e objetos.
+                </p>
+
+                <div class="json-editor-grid">
+                    <div>
+                        <h3 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 1rem;">JSON Text Editor (String)
+                        </h3>
+                        <textarea class="payload-textarea" style="height: 250px;" id="json-editor-text"
+                            oninput="renderJsonVisualizer(this.value)">{
+  "name": "João Silva",
+  "age": 22,
+  "isStudent": true,
+  "skills": ["HTML5", "CSS3", "JavaScript"],
+  "address": {
+    "city": "Erechim",
+    "state": "RS"
+  }
+}</textarea>
+                        <div id="json-status-indicator"
+                            style="margin-top: 0.5rem; font-weight: 700; font-size: 0.85rem; color: var(--green);">✓
+                            JSON Válido</div>
+                    </div>
+
+                    <div>
+                        <h3 style="font-weight: 800; font-size: 1.1rem; margin-bottom: 1rem;">Visualizador de Árvore
+                            JSON (Object)</h3>
+                        <div class="json-tree" id="json-tree-container">
+                            <!-- Dynamically structured JSON -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 8: FETCH API & AJAX -->
+        <section class="showcase-section" id="sec-fetch" aria-labelledby="h-fetch">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-fetch">Fetch API: Estados e Simulação</h2>
+                <p class="section-desc">
+                    A Fetch API fornece uma interface JS moderna e baseada em Promises para obter e enviar recursos da
+                    rede assincronamente sem recarregar a página inteira.
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">🔗 Fetch API & Loading Simulator</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Simule requisições assíncronas para entender estados pendentes (Loading), retornos de sucesso e
+                        tratamento de erros de API.
+                    </p>
+
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" onclick="simulateFetch('success')">Simular Sucesso (200
+                            OK)</button>
+                        <button class="btn btn-outline" onclick="simulateFetch('error')">Simular Erro (404 Not
+                            Found)</button>
+                        <button class="btn btn-outline" style="border-color: var(--red); color: var(--red);"
+                            onclick="simulateFetch('crash')">Simular Falha de Rede</button>
+                    </div>
+
+                    <div class="events-grid">
+                        <pre class="code-block" style="margin: 0; height: 100%;"><span class="cm">// Código Javascript executado</span>
+<span class="fn">fetch</span>(<span class="st">'https://api.exemplo.com/dados'</span>)
+  .<span class="fn">then</span>(res => res.<span class="fn">json</span>())
+  .<span class="fn">then</span>(data => console.<span class="fn">log</span>(data))
+  .<span class="fn">catch</span>(err => console.<span class="fn">error</span>(err));</pre>
+
+                        <div class="rest-workspace">
+                            <div style="font-weight: 700; font-size: 0.85rem; color: var(--mode-txt2);">Status da
+                                Requisição:</div>
+                            <div id="fetch-loader-status"
+                                style="font-weight: 800; font-size: 1.1rem; color: var(--blue);">IDLE</div>
+                            <div class="sim-console" id="fetch-output-console" style="min-height: 120px; margin: 0;">
+                                // Console: Pronto para requisição.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+         SECTION — AJAX / FETCH API
+    ═══════════════════════════════════════════ -->
+        <section class="showcase-section" id="sec-ajax" aria-labelledby="h-ajax">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-ajax">Fetch API: Integração Real (AJAX)</h2>
+                <p class="section-desc">Busca de dados reais da API pública JSONPlaceholder com loading state,
+                    tratamento de
+                    erros e renderização dinâmica.</p>
+
+                <div class="fetch-tabs" role="group" aria-label="Selecionar tipo de dado">
+                    <button class="layout-tab active" id="fetch-tab-posts" onclick="loadFetchData('posts')"
+                        aria-pressed="true">📄
+                        Posts</button>
+                    <button class="layout-tab" id="fetch-tab-users" onclick="loadFetchData('users')"
+                        aria-pressed="false">👥
+                        Usuários</button>
+                </div>
+
+                <div class="demo-panel">
+                    <h3>JSONPlaceholder API — <code
+                            style="color:var(--cyan);font-style:normal;font-size:0.8rem;">jsonplaceholder.typicode.com</code>
+                    </h3>
+
+                    <pre class="code-block mb-2"><span class="cm">// Exemplo de fetch com async/await</span>
+<span class="kw">async function</span> <span class="fn">loadPosts</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="st">'https://jsonplaceholder.typicode.com/posts?_limit=5'</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+    renderPosts(data); // Renderiza no DOM
+  } catch (err) {
+    showError(`Erro: ${err.message}`); // Tratamento de erro
+  }
+}</pre>
+
+                    <div id="fetch-status" class="fetch-status loading" style="display:none;" aria-live="polite"></div>
+                    <div id="fetch-content" aria-live="polite">
+                        <div style="text-align:center;padding:2rem;color:var(--mode-txt2);">
+                            <p>Clique nos botões acima para carregar dados da API.</p>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
+                        <button class="btn btn-primary" onclick="loadFetchData('posts')"
+                            aria-label="Carregar posts da API">📄
+                            Carregar Posts</button>
+                        <button class="btn btn-outline" onclick="loadFetchData('users')"
+                            aria-label="Carregar usuários da API">👥
+                            Carregar Usuários</button>
+                        <button class="btn btn-outline" onclick="simulateFetchError()"
+                            aria-label="Simular erro de rede">❌ Simular
+                            Erro</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9: REST APIs -->
+        <section class="showcase-section" id="sec-rest" aria-labelledby="h-rest">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-rest">REST APIs (Representational State Transfer)</h2>
+                <p class="section-desc">
+                    O modelo REST organiza endpoints de redes baseado em recursos representados por substantivos e
+                    manipulados pelos verbos HTTP adequados.
+                </p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span class="m-badge m-get" style="font-size: 0.75rem;">GET</span>
+                            <code style="font-weight: 700;">/users</code>
+                        </div>
+                        <p>Retorna uma lista JSON de todos os usuários cadastrados na base de dados.</p>
+                    </div>
+                    <div class="card">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span class="m-badge m-post" style="font-size: 0.75rem;">POST</span>
+                            <code style="font-weight: 700;">/users</code>
+                        </div>
+                        <p>Cria um novo usuário na base usando o payload enviado no body da requisição.</p>
+                    </div>
+                    <div class="card">
+                        <div
+                            style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <span class="m-badge m-delete" style="font-size: 0.75rem;">DELETE</span>
+                            <code style="font-weight: 700;">/users/12</code>
+                        </div>
+                        <p>Deleta permanentemente da base de dados o usuário que possui a chave identificadora
+                            correspondente.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+         SECTION  — INTERACTIVE JS COMPONENTS
+    ═══════════════════════════════════════════ -->
+        <section class="showcase-section" id="sec-apps" aria-labelledby="h-apps">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-apps">Componentes JavaScript Interativos</h2>
+                <p class="section-desc">Apps completos construídos com Vanilla JavaScript: calculadora, to-do list,
+                    quiz,
+                    countdown timer e catálogo de produtos dinâmico.</p>
+
+                <div class="split mb-2">
+                    <!-- CALCULATOR -->
+                    <div class="demo-panel">
+                        <h3>🧮 Calculadora</h3>
+                        <div class="calc-wrap" aria-label="Calculadora">
+                            <div class="calc-display" id="calc-display" aria-live="polite"
+                                aria-label="Display da calculadora">0</div>
+                            <div class="calc-grid" role="group" aria-label="Botões da calculadora">
+                                <button class="calc-btn clr" onclick="calcInput('C')" aria-label="Limpar">C</button>
+                                <button class="calc-btn op" onclick="calcInput('±')"
+                                    aria-label="Inverter sinal">±</button>
+                                <button class="calc-btn op" onclick="calcInput('%')" aria-label="Porcentagem">%</button>
+                                <button class="calc-btn op" onclick="calcInput('÷')" aria-label="Dividir">÷</button>
+
+                                <button class="calc-btn" onclick="calcInput('7')" aria-label="7">7</button>
+                                <button class="calc-btn" onclick="calcInput('8')" aria-label="8">8</button>
+                                <button class="calc-btn" onclick="calcInput('9')" aria-label="9">9</button>
+                                <button class="calc-btn op" onclick="calcInput('×')" aria-label="Multiplicar">×</button>
+
+                                <button class="calc-btn" onclick="calcInput('4')" aria-label="4">4</button>
+                                <button class="calc-btn" onclick="calcInput('5')" aria-label="5">5</button>
+                                <button class="calc-btn" onclick="calcInput('6')" aria-label="6">6</button>
+                                <button class="calc-btn op" onclick="calcInput('-')" aria-label="Subtrair">−</button>
+
+                                <button class="calc-btn" onclick="calcInput('1')" aria-label="1">1</button>
+                                <button class="calc-btn" onclick="calcInput('2')" aria-label="2">2</button>
+                                <button class="calc-btn" onclick="calcInput('3')" aria-label="3">3</button>
+                                <button class="calc-btn op" onclick="calcInput('+')" aria-label="Somar">+</button>
+
+                                <button class="calc-btn wide" onclick="calcInput('0')" aria-label="0">0</button>
+                                <button class="calc-btn" onclick="calcInput('.')" aria-label="Decimal">.</button>
+                                <button class="calc-btn eq" onclick="calcInput('=')" aria-label="Igual">=</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TODO LIST -->
+                    <div class="demo-panel">
+                        <h3>✅ To-Do List</h3>
+                        <div class="todo-input-row">
+                            <input class="todo-input" type="text" id="todo-in" placeholder="Nova tarefa..."
+                                aria-label="Adicionar nova tarefa" onkeydown="if(event.key==='Enter') addTodo()">
+                            <button class="btn btn-primary" onclick="addTodo()" aria-label="Adicionar tarefa"
+                                style="padding:0.65rem 1rem;">+</button>
+                        </div>
+                        <ul class="todo-list" id="todo-list" aria-label="Lista de tarefas" aria-live="polite"></ul>
+                        <p id="todo-count" style="margin-top:0.6rem;font-size:0.78rem;color:var(--mode-txt2);"
+                            aria-live="polite">0
+                            tarefas</p>
+                    </div>
+                </div>
+
+                <!-- COUNTDOWN TIMER -->
+                <div class="demo-panel mb-2">
+                    <h3>⏱️ Countdown Timer</h3>
+                    <div class="timer-display" id="timer-display" aria-live="polite" aria-label="Contagem regressiva">
+                        00:00</div>
+                    <div class="timer-set-row mb-2">
+                        <input type="number" id="timer-min" value="5" min="0" max="99" aria-label="Minutos">
+                        <span
+                            style="display:flex;align-items:center;color:var(--mode-txt2);font-size:1.2rem;font-weight:700;">:</span>
+                        <input type="number" id="timer-sec" value="0" min="0" max="59" aria-label="Segundos">
+                    </div>
+                    <div class="timer-controls">
+                        <button class="btn btn-primary" id="timer-start" onclick="timerStart()"
+                            aria-label="Iniciar timer">▶
+                            Iniciar</button>
+                        <button class="btn btn-outline" onclick="timerPause()" aria-label="Pausar timer">⏸
+                            Pausar</button>
+                        <button class="btn btn-outline" onclick="timerReset()" aria-label="Resetar timer">↺
+                            Reset</button>
+                    </div>
+                </div>
+
+                <!-- PRODUCT CARDS -->
+                <div class="demo-panel">
+                    <h3>🛍️ Catálogo de Produtos (Array → DOM)</h3>
+                    <div style="display:flex;gap:0.5rem;flex-wrap:wrap;margin-bottom:1rem;" role="group"
+                        aria-label="Filtros de categoria">
+                        <button class="layout-tab active" onclick="filterProducts('all')"
+                            aria-pressed="true">Todos</button>
+                        <button class="layout-tab" onclick="filterProducts('tech')" aria-pressed="false">Tech</button>
+                        <button class="layout-tab" onclick="filterProducts('food')"
+                            aria-pressed="false">Alimentos</button>
+                        <button class="layout-tab" onclick="filterProducts('book')" aria-pressed="false">Livros</button>
+                    </div>
+                    <div class="products-grid" id="products-grid" aria-label="Grade de produtos"></div>
+                </div>
+
+                <!-- MINI QUIZ -->
+                <div class="demo-panel mt-2">
+                    <h3>🧠 Mini Quiz — JavaScript &amp; JSON</h3>
+                    <div id="mini-quiz-wrap"></div>
+                </div>
+
+                <!-- JOGO DO CLIQUE -->
+                <div class="demo-panel mt-2">
+                    <h3>🕹️ Jogo do Clique Rápido</h3>
+                    <p style="font-size:0.85rem;color:var(--mode-txt2);margin-bottom:1.5rem;">Teste seus reflexos! Você
+                        tem 5
+                        segundos para clicar o máximo de vezes possível.</p>
+                    <div class="game-container">
+                        <div class="game-stats">
+                            <div class="stat-box">
+                                <span id="game-score" class="val">0</span>
+                                <span class="lbl">Cliques</span>
+                            </div>
+                            <div class="stat-box">
+                                <span id="game-timer" class="val timer">5.0</span>
+                                <span class="lbl">Segundos</span>
+                            </div>
+                        </div>
+                        <div class="game-controls">
+                            <button id="btn-start-game" class="btn-game btn-start" onclick="startGame()">▶ Iniciar
+                                Jogo</button>
+                            <button id="btn-click-game" class="btn-game btn-click" onclick="recordClick()"
+                                disabled>CLIQUE!</button>
+                        </div>
+                        <div id="game-msg"
+                            style="margin-top:1rem;text-align:center;font-weight:700;color:var(--blue);min-height:1.2rem;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+         SECTION — WEB APIS EXPLORER
+    ═══════════════════════════════════════════ -->
+        <section class="showcase-section" id="sec-apis" aria-labelledby="h-apis">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-apis">Web APIs Explorer (Navigator)</h2>
+                <p class="section-desc">O navegador moderno oferece dezenas de APIs poderosas para interagir com o
+                    hardware e
+                    o sistema operacional do usuário.</p>
+
+                <div class="api-grid">
+                    <!-- Bateria -->
+                    <div class="api-card">
+                        <div class="api-icon">🔋</div>
+                        <h3>Battery API</h3>
+                        <p>Verifique o nível de carga e se o dispositivo está conectado à energia.</p>
+                        <div class="api-action">
+                            <button class="btn btn-outline" onclick="checkBattery()"
+                                style="width:100%;font-size:0.75rem;">Verificar
+                                Bateria</button>
+                        </div>
+                        <div class="battery-container">
+                            <div id="bat-fill" class="battery-fill"></div>
+                        </div>
+                        <div id="bat-res" class="api-result">--%</div>
+                    </div>
+
+                    <!-- Geolocalização -->
+                    <div class="api-card">
+                        <div class="api-icon">📍</div>
+                        <h3>Geolocation API</h3>
+                        <p>Obtenha as coordenadas geográficas (latitude/longitude) do usuário.</p>
+                        <div class="api-action">
+                            <button class="btn btn-outline" onclick="checkGeo()"
+                                style="width:100%;font-size:0.75rem;">Obter
+                                Localização</button>
+                        </div>
+                        <div id="geo-res" class="api-result">Coordenadas...</div>
+                    </div>
+
+                    <!-- Vibração -->
+                    <div class="api-card">
+                        <div class="api-icon">📳</div>
+                        <h3>Vibration API</h3>
+                        <p>Faça o dispositivo vibrar (apenas mobile). Útil para notificações e jogos.</p>
+                        <div class="api-action">
+                            <button class="btn btn-outline" onclick="triggerVibrate()"
+                                style="width:100%;font-size:0.75rem;">Vibrar
+                                (200ms)</button>
+                        </div>
+                        <div id="vib-res" class="api-result">Status...</div>
+                    </div>
+
+                    <!-- Notificação -->
+                    <div class="api-card">
+                        <div class="api-icon">🔔</div>
+                        <h3>Notifications API</h3>
+                        <p>Envie notificações do sistema para o usuário, mesmo com a aba em background.</p>
+                        <div class="api-action">
+                            <button class="btn btn-outline" onclick="askNotify()"
+                                style="width:100%;font-size:0.75rem;">Pedir
+                                Permissão</button>
+                        </div>
+                        <div id="not-res" class="api-result">Permissão...</div>
+                    </div>
+
+                    <!-- Conectividade -->
+                    <div class="api-card">
+                        <div class="api-icon">🌐</div>
+                        <h3>Network Status</h3>
+                        <p>Monitore se o usuário está online ou offline em tempo real.</p>
+                        <div id="net-res" class="api-result">Online</div>
+                    </div>
+
+                    <!-- Compartilhamento -->
+                    <div class="api-card">
+                        <div class="api-icon">📤</div>
+                        <h3>Web Share API</h3>
+                        <p>Abra o diálogo nativo de compartilhamento do SO (mobile/tablet).</p>
+                        <div class="api-action">
+                            <button class="btn btn-outline" onclick="triggerShare()"
+                                style="width:100%;font-size:0.75rem;">Compartilhar Link</button>
+                        </div>
+                        <div id="share-res" class="api-result">Aguardando...</div>
+                    </div>
+
+                    <!-- Media Devices -->
+                    <div class="api-card">
+                        <div class="api-icon">📸</div>
+                        <h3>Media Devices</h3>
+                        <p>Liste câmeras e microfones conectados ao dispositivo.</p>
+                        <div class="api-action">
+                            <button class="btn btn-outline" onclick="listMedia()"
+                                style="width:100%;font-size:0.75rem;">Listar
+                                Dispositivos</button>
+                        </div>
+                        <ul id="media-res"
+                            style="font-size:0.7rem;color:var(--mode-txt2);margin-top:0.5rem;list-style:none;padding:0;">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 10: WEB SECURITY FUNDAMENTALS -->
+        <section class="showcase-section" id="sec-security" aria-labelledby="h-security">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-security">Web Security Fundamentals (HTTP vs HTTPS)</h2>
+                <p class="section-desc">
+                    HTTPS (Secure) adds an SSL/TLS cryptographic layer on top of plain HTTP to prevent credential theft
+                    and eavesdropping.
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">🔒 HTTP vs HTTPS Traffic Intercept Simulator</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Envie dados confidenciais através de conexões com e sem criptografia e veja como terceiros
+                        interceptam as informações trafegadas.
+                    </p>
+
+                    <div class="form-group" style="max-width: 400px; margin-bottom: 1.5rem;">
+                        <label
+                            style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 0.3rem;">Digite
+                            uma Senha para Enviar:</label>
+                        <input type="password" class="form-input" id="sec-pass-input" value="minhasenha123"
+                            oninput="updateSecPass(this.value)">
+                    </div>
+
+                    <div class="battle-track">
+                        <div
+                            style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.9rem;">
+                            <span>🌐 Conexão HTTP (Sem Criptografia)</span>
+                            <span style="color: var(--red);">Risco de Sniffing</span>
+                        </div>
+                        <div class="battle-line">
+                            <div class="battle-packet" id="packet-http">GET: pass=minhasenha123</div>
+                            <div class="battle-hacker">🕵️‍♂️ Sniffer</div>
+                        </div>
+                        <div class="battle-intercept" id="intercept-http">
+                            // Pacote de Rede Interceptado pelo Hacker: minhasenha123 (SENHA EXPOSTA!)
+                        </div>
+                    </div>
+
+                    <div class="battle-track">
+                        <div
+                            style="display: flex; justify-content: space-between; font-weight: 800; font-size: 0.9rem;">
+                            <span>🔒 Conexão HTTPS (Criptografada SSL/TLS)</span>
+                            <span style="color: var(--green);">Conexão Protegida</span>
+                        </div>
+                        <div class="battle-line">
+                            <div class="battle-packet" id="packet-https">GET: pass=e78bc90aa1...</div>
+                            <div class="battle-hacker">🕵️‍♂️ Sniffer</div>
+                        </div>
+                        <div class="battle-intercept" id="intercept-https"
+                            style="color: var(--green); border-color: var(--green); background: rgba(52,211,153,0.05)">
+                            // Pacote de Rede Interceptado pelo Hacker: a58e8b0ac7db7ee33d3c85f... (CRIPTOGRAFADO!)
+                        </div>
+                    </div>
+
+                    <div class="arch-controls">
+                        <button class="btn btn-primary" onclick="startSecurityBattle()">Simular Tráfego de Rede</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 11: AUTHENTICATION VS AUTHORIZATION -->
+        <section class="showcase-section" id="sec-auth-authz" aria-labelledby="h-auth-authz">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-auth-authz">Authentication vs Authorization</h2>
+                <p class="section-desc">
+                    Enquanto a Autenticação confirma que você é quem diz ser (Quem você é?), a Autorização valida se
+                    você tem as permissões necessárias para acessar um recurso (O que você pode acessar?).
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">🔑 Interactive Role & Access Simulator</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Selecione uma credencial de usuário abaixo e veja quais pastas e ações da plataforma simulada
+                        são permitidas ou bloqueadas (403 Forbidden).
+                    </p>
+
+                    <div style="display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                        <button class="btn btn-primary" id="role-guest" onclick="selectRole('guest', this)">Visitante
+                            (Não Autenticado)</button>
+                        <button class="btn btn-outline" id="role-user" onclick="selectRole('user', this)">Estudante
+                            (Autenticado)</button>
+                        <button class="btn btn-outline" id="role-admin" onclick="selectRole('admin', this)">Admin
+                            (Autenticado + Admin)</button>
+                    </div>
+
+                    <div class="role-grid">
+                        <div class="role-card" id="card-public">
+                            <div>
+                                <strong style="display: block;">Grade Horária</strong>
+                                <span style="font-size: 0.75rem; color: var(--mode-txt2);">Acesso Público</span>
+                            </div>
+                            <span class="role-status-icon">🔓</span>
+                        </div>
+
+                        <div class="role-card" id="card-grades">
+                            <div>
+                                <strong style="display: block;">Enviar Trabalho</strong>
+                                <span style="font-size: 0.75rem; color: var(--mode-txt2);">Requer Autenticação</span>
+                            </div>
+                            <span class="role-status-icon">🔒</span>
+                        </div>
+
+                        <div class="role-card" id="card-admin-dashboard">
+                            <div>
+                                <strong style="display: block;">Painel Admin</strong>
+                                <span style="font-size: 0.75rem; color: var(--mode-txt2);">Requer Admin</span>
+                            </div>
+                            <span class="role-status-icon">🔒</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION — STATELESS JWT AUTHENTICATION -->
+        <section class="showcase-section" id="sec-jwt" aria-labelledby="h-jwt">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-jwt">Autenticação Stateless com JWT (JSON Web Tokens)</h2>
+                <p class="section-desc">
+                    O modelo REST prega a comunicação stateless (sem estado), onde o servidor não armazena sessões na memória. O JWT resolve este problema transportando as informações cifradas e assinadas diretamente no token.
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">🔑 Decodificador e Gerador de Tokens JWT</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Preencha as informações do payload, gere um token assinado fictício e veja como o JWT é dividido em Header (vermelho), Payload (azul) e Signature (verde).
+                    </p>
+
+                    <div class="jwt-grid">
+                        <div class="jwt-editor">
+                            <h4 style="margin-bottom: 0.75rem;">1. Payload Claims (Dados do Usuário)</h4>
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label style="font-size: 0.75rem; font-weight: 700;">Email:</label>
+                                <input type="text" class="form-input" id="jwt-email" value="admin@email.com" oninput="updateFictionalJwt()" style="padding: 0.45rem;">
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label style="font-size: 0.75rem; font-weight: 700;">Role (Cargo/Regra):</label>
+                                <select class="form-input" id="jwt-role" onchange="updateFictionalJwt()" style="padding: 0.45rem;">
+                                    <option value="admin">admin</option>
+                                    <option value="user">user</option>
+                                    <option value="guest">guest</option>
+                                </select>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0.75rem;">
+                                <label style="font-size: 0.75rem; font-weight: 700;">Chave Secreta de Assinatura (Secret):</label>
+                                <input type="text" class="form-input" id="jwt-secret" value="minha_chave_super_secreta" oninput="updateFictionalJwt()" style="padding: 0.45rem;">
+                            </div>
+
+                            <div class="jwt-flow-steps" style="margin-top: 1.5rem; font-size: 0.8rem; color: var(--mode-txt2);">
+                                <strong style="color: var(--mode-txt); display: block; margin-bottom: 0.35rem;">Fluxo do JWT nas APIs:</strong>
+                                1. Login efetuado: API gera e assina o JWT.<br>
+                                2. Front-end salva o token no LocalStorage.<br>
+                                3. Requisições enviam no Header: <code>Authorization: Bearer [token]</code>.<br>
+                                4. Servidor valida a assinatura usando a chave secreta.
+                            </div>
+                        </div>
+
+                        <div class="jwt-viewer">
+                            <h4 style="margin-bottom: 0.75rem;">2. String do Token JWT Gerada</h4>
+                            <div class="jwt-string-box" id="jwt-string-output">
+                                <!-- Colored blocks represent parts of the JWT -->
+                            </div>
+
+                            <h4 style="margin-top: 1.5rem; margin-bottom: 0.75rem;">3. Decodificador das Partes</h4>
+                            <div class="jwt-parts-display">
+                                <div class="jwt-part-card border-red">
+                                    <strong style="color: var(--red);">Header (Metadados)</strong>
+                                    <pre class="code-block" id="jwt-header-decoded" style="margin: 0.25rem 0 0 0; padding: 0.5rem; font-size: 0.75rem;">{}</pre>
+                                </div>
+                                <div class="jwt-part-card border-blue">
+                                    <strong style="color: var(--blue);">Payload (Claims)</strong>
+                                    <pre class="code-block" id="jwt-payload-decoded" style="margin: 0.25rem 0 0 0; padding: 0.5rem; font-size: 0.75rem;">{}</pre>
+                                </div>
+                                <div class="jwt-part-card border-green">
+                                    <strong style="color: var(--green);">Signature (Validação)</strong>
+                                    <pre class="code-block" id="jwt-signature-decoded" style="margin: 0.25rem 0 0 0; padding: 0.5rem; font-size: 0.75rem; white-space: pre-wrap; word-break: break-all;">HMACSHA256(...)</pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 12: COOKIES, SESSIONS, AND LOCAL STORAGE -->
+        <section class="showcase-section" id="sec-storage" aria-labelledby="h-storage">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-storage">Cookies, Sessions, and Local Storage</h2>
+                <p class="section-desc">
+                    O navegador oferece diferentes métodos para persistência de dados. A escolha depende da necessidade
+                    de compartilhamento com o servidor, capacidade e tempo de expiração.
+                </p>
+
+                <div class="demo-panel">
+                    <div class="panel-title">💾 Browser Storage Live Playground</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Adicione chaves e valores abaixo para armazená-los diretamente no LocalStorage do seu navegador
+                        e veja a tabela atualizar em tempo real.
+                    </p>
+
+                    <div class="events-grid" style="align-items: flex-start;">
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <input type="text" class="form-input" id="storage-key-input" placeholder="Chave (Ex: tema)">
+                            <input type="text" class="form-input" id="storage-value-input"
+                                placeholder="Valor (Ex: dark)">
+                            <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                                <button class="btn btn-primary" onclick="saveToStorage('local')">Salvar no
+                                    LocalStorage</button>
+                                <button class="btn btn-outline" onclick="saveToStorage('session')">Salvar no
+                                    SessionStorage</button>
+                            </div>
+                        </div>
+
+                        <div style="width: 100%;">
+                            <strong style="font-size: 0.85rem; display: block; margin-bottom: 0.5rem;">Registros Atuais
+                                do LocalStorage:</strong>
+                            <div class="sim-console" id="storage-console"
+                                style="min-height: 120px; margin: 0; padding: 0.5rem 1rem;">
+                                chaves cadastradas no navegador...
+                            </div>
+                        </div>
+                    </div>
+
+                    <table class="storage-table">
+                        <thead>
+                            <tr>
+                                <th>Recurso</th>
+                                <th>Capacidade</th>
+                                <th>Tempo de Vida</th>
+                                <th>Envio Automático ao Servidor?</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>LocalStorage</strong></td>
+                                <td>~5MB a 10MB</td>
+                                <td>Até ser excluído manualmente</td>
+                                <td>Não</td>
+                            </tr>
+                            <tr>
+                                <td><strong>SessionStorage</strong></td>
+                                <td>~5MB</td>
+                                <td>Excluído ao fechar a aba/navegador</td>
+                                <td>Não</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cookies</strong></td>
+                                <td>~4KB</td>
+                                <td>Definido manualmente via Header</td>
+                                <td>Sim (Enviado em cada HTTP Request)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 13: FRONTEND VS BACKEND -->
+        <section class="showcase-section" id="sec-frontend-backend" aria-labelledby="h-frontend-backend">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-frontend-backend">Frontend vs Backend</h2>
+                <p class="section-desc">
+                    A divisão clássica do desenvolvimento web moderna separa as tecnologias do lado do cliente
+                    (Frontend) daquelas executadas do lado do servidor (Backend).
+                </p>
+
+                <div class="card-grid">
+                    <div class="card" style="border-left: 4px solid var(--blue);">
+                        <span class="card-icon">🎨</span>
+                        <h3>Front-end (Client-Side)</h3>
+                        <p>O foco do front-end é a experiência do usuário. Ele engloba a estrutura semântica (HTML5),
+                            estilização responsiva (CSS3, Flexbox/Grid) e comportamento lógico e assíncrono (JavaScript,
+                            React, Vue).</p>
+                    </div>
+                    <div class="card" style="border-left: 4px solid var(--purple);">
+                        <span class="card-icon">🏗️</span>
+                        <h3>Back-end (Server-Side)</h3>
+                        <p>O foco do back-end é o processamento de regras, orquestração e segurança da aplicação. Ele
+                            processa requisições complexas, gerencia conexões a bancos de dados persistentes e gerencia
+                            a lógica de permissões.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION — DATABASES, ORM & MVC -->
+        <section class="showcase-section" id="sec-databases" aria-labelledby="h-databases">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-databases">Banco de Dados, ORM e Padrão MVC</h2>
+                <p class="section-desc">
+                    A camada de persistência garante que as informações permaneçam salvas. Para organizar esse acesso com segurança e clareza, dividimos a lógica no padrão MVC e utilizamos mapeadores (ORMs) ou consultas SQL diretas.
+                </p>
+
+                <div class="split">
+                    <!-- SQL vs NoSQL -->
+                    <div class="demo-panel">
+                        <h3>🗄️ Relacional (PostgreSQL) vs NoSQL</h3>
+                        <p style="font-size: 0.85rem; color: var(--mode-txt2); margin-bottom: 1rem;">
+                            <strong>Relacional:</strong> Armazena dados em tabelas (linhas/colunas), priorizando consistência e transações seguras (ACID). Padrão utilizado no curso: <strong>PostgreSQL</strong> (porta padrão: <code>5432</code>, conexão Supabase / Localhost).<br>
+                            <strong>Não Relacional (NoSQL):</strong> Armazena documentos flexíveis sem esquemas rígidos (ex: MongoDB).
+                        </p>
+                        <pre class="code-block" style="margin: 0;"><span class="cm">-- Criar tabela de Usuários</span>
+<span class="kw">CREATE TABLE</span> users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL
+);
+
+<span class="cm">-- Inserir dados</span>
+<span class="kw">INSERT INTO</span> users (name, email)
+<span class="kw">VALUES</span> (<span class="st">'Juliana Costa'</span>, <span class="st">'juliana@alphatech.com'</span>);</pre>
+                    </div>
+
+                    <!-- Integration and ORM -->
+                    <div class="demo-panel">
+                        <h3>🏗️ Conexão Node + DB e Mapeamento ORM</h3>
+                        <p style="font-size: 0.85rem; color: var(--mode-txt2); margin-bottom: 0.75rem;">
+                            A conexão direta no Node.js é feita pelo módulo <code>pg</code>, alimentado por variáveis secretas salvas no arquivo <code>.env</code> (dotenv).
+                        </p>
+                        <pre class="code-block" style="margin-bottom: 0.75rem;"><span class="cm"># Arquivo .env</span>
+DB_USER=postgres
+DB_PASSWORD=admin
+DB_NAME=postgres
+DB_HOST=127.0.0.1
+DB_PORT=5432</pre>
+                        <p style="font-size: 0.85rem; color: var(--mode-txt2); margin-bottom: 0.75rem;">
+                            <strong>ORM (Object Relational Mapping):</strong> Abstrai o SQL puro usando objetos da linguagem (Prisma, Sequelize).
+                        </p>
+                        <table class="storage-table" style="font-size: 0.75rem;">
+                            <thead>
+                                <tr>
+                                    <th>Abordagem</th>
+                                    <th>Vantagens</th>
+                                    <th>Desempenho</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>SQL Puro</strong></td>
+                                    <td>Controle total e rapidez</td>
+                                    <td><strong style="color: var(--green);">Mais rápido (~40% mais ágil)</strong></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ORM</strong></td>
+                                    <td>Produtividade e Migrations</td>
+                                    <td>Overhead adicional</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- MVC Pattern Interactive Flow -->
+                <div class="demo-panel mt-3">
+                    <div class="panel-title">🏛️ Padrão MVC (Model-View-Controller)</div>
+                    <p style="color: var(--mode-txt2); font-size: 0.9rem; margin-bottom: 1.5rem;">
+                        Criado em 1979, o MVC separa a aplicação em três camadas principais: a representação de dados (Model), a interface (View) e o controle de rotas/regras de negócios (Controller).
+                    </p>
+
+                    <div class="mvc-simulation-container">
+                        <div class="mvc-flowchart" id="mvc-flowchart-grid">
+                            <div class="mvc-node" id="mvc-client">
+                                <div class="node-icon">📱</div>
+                                <strong>Client / View</strong>
+                                <span style="font-size: 0.7rem;">HTML/CSS/JS</span>
+                            </div>
+
+                            <div class="mvc-arrow" id="mvc-arrow-1">➔</div>
+
+                            <div class="mvc-node" id="mvc-controller">
+                                <div class="node-icon">🎮</div>
+                                <strong>Controller</strong>
+                                <span style="font-size: 0.7rem;">Lógica &amp; Rotas</span>
+                            </div>
+
+                            <div class="mvc-arrow-vertical" id="mvc-arrow-2">
+                                <span class="arrow-up">▲</span>
+                                <span class="arrow-down">▼</span>
+                            </div>
+
+                            <div class="mvc-node" id="mvc-model">
+                                <div class="node-icon">🗄️</div>
+                                <strong>Model / DB</strong>
+                                <span style="font-size: 0.7rem;">Dados &amp; Tabelas</span>
+                            </div>
+                        </div>
+
+                        <div class="mvc-controls mt-2" style="text-align: center;">
+                            <button class="btn btn-primary" onclick="startMvcRequestFlow()">Simular Fluxo de Requisição MVC</button>
+                        </div>
+
+                        <div class="sim-console" id="mvc-sim-console" style="min-height: 80px; margin-top: 1.5rem;">
+                            // Clique no botão acima para ver como a requisição transita pelas camadas do backend MVC...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ═══════════════════════════════════════════
+         SECTION — FRAMEWORKS MODERNOS
+    ═══════════════════════════════════════════ -->
+        <section class="showcase-section" id="sec-fwk" aria-labelledby="h-fwk">
+            <div class="section-inner">
+                <span class="section-label">Módulo 2</span>
+                <h2 class="section-title" id="h-fwk">Frameworks Modernos (React, Vue, Angular)</h2>
+                <p class="section-desc">Quando a aplicação cresce, frameworks ajudam a organizar o código através de
+                    componentização, estado reativo e roteamento.</p>
+
+                <div class="card-grid">
+                    <div class="card">
+                        <div class="card-icon">⚛️</div>
+                        <h3>React</h3>
+                        <p>Biblioteca do Facebook baseada em componentes e Virtual DOM. Foco em declarar <em>como</em> a
+                            UI deve
+                            ser.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🖖</div>
+                        <h3>Vue.js</h3>
+                        <p>Framework progressivo e versátil. Conhecido pela curva de aprendizado suave e excelente
+                            documentação.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon">🅰️</div>
+                        <h3>Angular</h3>
+                        <p>Framework robusto do Google. Inclui tudo o que é necessário para grandes aplicações
+                            enterprise.</p>
+                    </div>
+                </div>
+
+                <div class="demo-panel mt-3">
+                    <h3>O Pensamento Reativo (Exemplo React)</h3>
+                    <pre class="code-block"><span class="kw">function</span> <span class="fn">Counter</span>() {
+  <span class="kw">const</span> [count, setCount] = <span class="fn">useState</span>(<span class="vl">0</span>);
+
+  <span class="kw">return</span> (
+    <span class="tag">&lt;button</span> <span class="attr">onClick</span>={() =&gt; <span class="fn">setCount</span>(count + <span class="vl">1</span>)}<span class="tag">&gt;</span>
+      Contagem: {count}
+    <span class="tag">&lt;/button&gt;</span>
+  );
+}</pre>
+                    <p style="font-size:0.85rem;color:var(--mode-txt2);margin-top:1rem;">Diferente do Vanilla JS, onde
+                        você
+                        manipula o DOM manualmente (<code>appendChild</code>), em frameworks você apenas atualiza o
+                        <strong>Estado</strong> e a UI reage automaticamente.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- ── FOOTER ─────────────────────────────── -->
+    <footer role="contentinfo">
+        <p>
+            Tagliari Web Programming Showcase · Todos os tópicos do curso·
+            <a href="revisao-first-test.html">📋 Revisão para a Primeira Prova</a>
+            <a href="revisao-second-test.html">📋 Revisão para a Segunda Prova</a>
+
+        </p>
+    </footer>
+
+    <button id="back-to-top" aria-label="Voltar ao topo da página" title="Topo"
+        style="position: fixed; bottom: 2rem; right: 2rem; background: var(--blue); color: #fff; width: 44px; height: 44px; border-radius: 50%; border: none; font-size: 1.25rem; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(79, 142, 247, 0.4); opacity: 0; pointer-events: none; transition: all 0.3s; z-index: 100;">↑</button>
+
+    <!-- JAVASCRIPT SYSTEM & INTERACTIVE MODULES LOGIC -->
+    <script src="index-script.js"></script>
+
+</body>
+
+</html>
