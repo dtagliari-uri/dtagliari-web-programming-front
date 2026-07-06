@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Portal de Notas — Consulta individual e segura de rendimento acadêmico para as turmas de Programação Web (T1 e T2) da URI.">
+  <title>Portal de Notas — Programação Web URI</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Fira+Code:wght@400;500;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Core CSS & Page CSS -->
+  <link rel="stylesheet" href="index-style.css">
+  <link rel="stylesheet" href="notas-style.css">
+</head>
+
+<body>
+
+  <!-- Scroll Progress Bar -->
+  <div id="scroll-bar" role="progressbar" aria-label="Progresso de leitura"></div>
+
+  <!-- Sticky Navbar -->
+  <nav id="navbar" aria-label="Navegação principal">
+    <a href="index.html" class="navbar-brand" aria-label="Portfólio Web URI">Tagliari Web Programming</a>
+    <div class="navbar-actions">
+      <a href="index.html" class="nav-back-link" aria-label="Voltar para a página inicial">← Voltar ao Início</a>
+      <button id="mode-toggle" aria-label="Alternar tema" title="Alternar tema escuro/claro">🌙</button>
+    </div>
+  </nav>
+
+  <!-- Container Principal -->
+  <main class="notas-container">
+
+    <!-- Search Section -->
+    <section class="search-card" aria-labelledby="portal-title">
+      <h1 class="search-title" id="portal-title">Portal de Consulta de Notas</h1>
+      <p class="search-desc">
+        Insira seu RA (Registro Acadêmico) abaixo para visualizar suas notas de Prova 1, Prova 2, TDE, ENADE e Média Final de forma segura e privada.
+      </p>
+
+      <div class="search-box">
+        <input type="text" id="ra-search-input" class="search-input-field" placeholder="Digite seu RA (ex: 110194)"
+          aria-label="Digite o RA do aluno" maxlength="8" pattern="\d*">
+        <button id="btn-search-ra" class="btn btn-primary btn-search" aria-label="Buscar notas do estudante">
+          🔍 Consultar Notas
+        </button>
+      </div>
+    </section>
+
+    <!-- Error Messaging Box -->
+    <div id="error-container" class="error-box" role="alert" aria-live="assertive"></div>
+
+    <!-- Student Results Panel -->
+    <section id="result-container" class="result-card" aria-labelledby="student-result-title">
+      
+      <!-- Student Info Header -->
+      <div class="student-info-header">
+        <div class="student-identity">
+          <h2 id="student-name-val">NOME DO ESTUDANTE</h2>
+          <p>Registro Acadêmico (RA): <strong id="student-ra-val">000000</strong></p>
+        </div>
+        <div class="student-status">
+          <span id="student-class-val" class="class-badge">Turma</span>
+          <span id="calc-status-badge" class="status-badge">Status</span>
+        </div>
+      </div>
+
+      <!-- Feedback Alert Box -->
+      <div id="student-feedback-container" class="feedback-alert-box" style="margin-bottom: 2rem; display: none;">
+        <span class="feedback-icon" style="font-size: 1.3rem;"></span>
+        <span class="feedback-text"></span>
+      </div>
+
+      <!-- Tables Comparison Grid -->
+      <div class="tables-grid">
+        
+        <!-- Table 1: Fórmula de Aula -->
+        <div class="table-wrapper">
+          <h3 id="student-result-title">1. Notas de Aula (Fórmula Oficial)</h3>
+          <table class="grades-table" aria-label="Detalhamento das notas com a fórmula de aula">
+            <thead>
+              <tr>
+                <th>Avaliação</th>
+                <th>Nota Original (10)</th>
+                <th>Peso Aplicado (8)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Prova 1 (Peso 8.0)</td>
+                <td><span id="t-p1" class="grade-val">0,00</span></td>
+                <td><span id="t-p1-8" class="grade-val">0,00</span></td>
+              </tr>
+              <tr>
+                <td>Prova 2 (Peso 8.0)</td>
+                <td><span id="t-p2" class="grade-val">0,00</span></td>
+                <td><span id="t-p2-8" class="grade-val">0,00</span></td>
+              </tr>
+              <tr class="highlight-row">
+                <td>TDE (Atividades Práticas)</td>
+                <td>—</td>
+                <td><span id="t-tde" class="grade-val">0,00</span></td>
+              </tr>
+              <tr class="highlight-row">
+                <td>Simulado ENADE (Na média)</td>
+                <td>—</td>
+                <td><span id="t-enade" class="grade-val">0,00</span></td>
+              </tr>
+              <tr class="total-row">
+                <td>Média Final (Fórmula)</td>
+                <td>—</td>
+                <td><span id="t-final" class="grade-val">0,00</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table 2: Portal da URI -->
+        <div class="table-wrapper uri">
+          <h3>2. Registro no Portal da URI</h3>
+          <table class="grades-table" aria-label="Detalhamento das notas conforme constam no portal da URI">
+            <thead>
+              <tr>
+                <th>Campo no Portal</th>
+                <th>Nota Lançada</th>
+                <th>Peso do Portal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Prova 1</td>
+                <td><span id="p-p1" class="grade-val">0,00</span></td>
+                <td>Peso 0,8</td>
+              </tr>
+              <tr>
+                <td>Prova 2</td>
+                <td><span id="p-p2" class="grade-val">0,00</span></td>
+                <td>Peso 0,8</td>
+              </tr>
+              <tr class="total-row">
+                <td>Média Final (Portal)</td>
+                <td><span id="p-final" class="grade-val">0,00</span></td>
+                <td>Média Simples</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Calculation Steps Breakdown -->
+      <div class="calc-explanation">
+        <h3>Como a sua Média Final foi calculada:</h3>
+        <span class="formula-display">
+          Média Final = ( (Prova 1 × 0.8) + (Prova 2 × 0.8) ) / 2 + TDE + ENADE
+        </span>
+        <div class="calc-steps">
+          <div class="calc-step" id="calc-step-p1">Prova 1: ...</div>
+          <div class="calc-step" id="calc-step-p2">Prova 2: ...</div>
+          <div class="calc-step" id="calc-step-avg">Média das Provas: ...</div>
+          <div class="calc-step" id="calc-step-sum">Soma dos Componentes: ...</div>
+          <div class="calc-step" id="calc-step-final" style="border: none; font-weight: 800; font-size: 1.15rem;">Nota Final: ...</div>
+        </div>
+      </div>
+
+      <!-- Portal Equality Alert -->
+      <div class="portal-matching-alert">
+        <span class="matching-icon" aria-hidden="true">✔</span>
+        <div class="matching-text">
+          <h4>Garantia de Equivalência de Média</h4>
+          <p id="portal-distribution-text">
+            No Portal da URI, as notas de avaliações contínuas (TDE e ENADE) foram incorporadas proporcionalmente na nota das avaliações formais (Prova 1 e Prova 2). Note que a <strong>Média Final (Portal)</strong> é exatamente igual à <strong>Média Final (Fórmula)</strong> calculada em sala de aula, garantindo que o seu rendimento acadêmico permaneça rigorosamente o mesmo.
+          </p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Final Exams Schedule Banner -->
+    <section class="exam-banner" aria-labelledby="exam-schedule-title">
+      <div class="exam-icon" aria-hidden="true">📅</div>
+      <div class="exam-info">
+        <h3 id="exam-schedule-title">Exames Finais de Recuperação</h3>
+        <p>
+          Atenção estudantes que ficaram em situação de exame (média abaixo de 6,00): os exames ocorrerão na <strong class="exam-highlight">terça-feira, dias 7 e 8 de Julho de 2026</strong>, nos horários normais de aula das turmas correspondentes. Preparem-se adequadamente!
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer role="contentinfo">
+    <p>
+      Tagliari Web Programming Showcase · Portal de Notas do Estudante ·
+      <a href="index.html">Página Principal</a>
+      <a href="sorteador.html">🎲 Sorteador de Alunos</a>
+    </p>
+  </footer>
+
+  <!-- Script Import -->
+  <script src="notas-script.js"></script>
+
+</body>
+
+</html>
