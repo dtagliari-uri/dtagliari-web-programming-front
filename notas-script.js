@@ -50,7 +50,8 @@ function searchStudent() {
   
   if (!raInput || !resultContainer || !errorContainer) return;
 
-  const raQuery = raInput.value.trim();
+  // Normalize input to 6 digits by padding with leading zeros
+  const raQuery = raInput.value.trim().padStart(6, '0');
   
   // Reset outputs
   resultContainer.classList.remove("visible");
@@ -58,26 +59,27 @@ function searchStudent() {
   resultContainer.style.display = "none";
   errorContainer.style.display = "none";
 
-  if (!raQuery) {
+  if (!raInput.value.trim()) {
     showError("Por favor, digite um RA.");
     return;
   }
 
-  if (!/^\d+$/.test(raQuery)) {
+  if (!/^\d+$/.test(raInput.value.trim())) {
     showError("O RA deve conter apenas números.");
     return;
   }
 
-  const student = ALUNOS_DB.find(s => s.ra === raQuery);
+  // Compare both input and db record after padding to 6 digits
+  const student = ALUNOS_DB.find(s => s.ra.padStart(6, '0') === raQuery);
 
   if (!student) {
     showError("Estudante não encontrado. Verifique se o RA está correto.");
     return;
   }
 
-  // Display Student Info
+  // Display Student Info (guaranteeing 6-digit display)
   document.getElementById("student-name-val").textContent = student.nome;
-  document.getElementById("student-ra-val").textContent = student.ra;
+  document.getElementById("student-ra-val").textContent = student.ra.padStart(6, '0');
   document.getElementById("student-class-val").textContent = `Turma ${student.turma}`;
   
   // Set class tag style
